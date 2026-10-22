@@ -26,110 +26,62 @@ h1 {
     font-size: 0.9rem;                            /* Slightly smaller text */
 }
 
-/* ===== Graph legend ===== */
-.chart-legend span {
-    margin-right: 16px;                           /* Space between legend items */
-    font-size: 0.9rem;
-}
+/* ===== Shared page layout ===== */ /* Groups styles shared by all pages */
+.app-page { /* Scopes the shared app presentation to every page */
+    background-color: #f3f7f7; /* Gives every page a calm, low-glare background */
+    color: #18333a; /* Maintains strong contrast for page text */
+} /* Ends shared page styling */
 
-.chart-legend span::before {                      /* Draws a small coloured mark before each legend word */
-    content: "";                                  /* Empty: we only want the shape */
-    display: inline-block;
-    width: 22px;
-    height: 0;
-    margin-right: 6px;
-    vertical-align: middle;
-}
-
-.legend-actual::before   { border-top: 3px solid #0d6efd; }   /* Solid blue line = actual demand */
-.legend-forecast::before { border-top: 3px dashed #fd7e14; }  /* Dashed orange line = forecast */
-.legend-test::before     { border-top: 10px solid #cfe2ff; }  /* Light blue block = test weeks */
-
-/* ===== Graph (SVG) ===== */
-.forecast-chart {
-    width: 100%;                                  /* Graph fills the card's width */
-    height: auto;                                 /* Keeps its shape when resized (works on phones) */
-}
-
-.forecast-chart .grid {
-    stroke: #dee2e6;                              /* Light grey gridlines */
-    stroke-width: 1;
-}
-
-.forecast-chart .axis-label {
-    font-size: 12px;                              /* Small axis numbers */
-    fill: #6c757d;                                /* Grey text (in SVG, text colour is "fill") */
-}
-
-.forecast-chart .test-area {
-    fill: #cfe2ff;                                /* Light blue box behind the test weeks */
-    opacity: 0.6;                                 /* Slightly see-through */
-}
-
-.forecast-chart .line-actual {
-    fill: none;                                   /* Don't fill under the line */
-    stroke: #0d6efd;                              /* Blue line */
-    stroke-width: 3;
-}
-
-.forecast-chart .line-forecast {
-    fill: none;
-    stroke: #fd7e14;                              /* Orange line */
-    stroke-width: 3;
-    stroke-dasharray: 8 5;                        /* Dashed: 8px line, 5px gap */
-}
-
-/* ===== Dashboard ===== */ /* Groups styles used only by the inventory dashboard */
-.dashboard-page { /* Scopes dashboard presentation to this page */
-    background-color: #f3f7f7; /* Gives the dashboard a calm, low-glare background */
-    color: #18333a; /* Maintains strong contrast for dashboard text */
-} /* Ends dashboard page styling */
-
-.dashboard-page h1 { /* Styles the dashboard page title */
+.app-page h1 { /* Styles the shared page title */
     font-size: clamp(1.75rem, 3vw, 2.25rem); /* Keeps the heading readable across screen sizes */
     font-weight: 700; /* Gives the page title clear visual hierarchy */
-} /* Ends dashboard title styling */
+} /* Ends shared page title styling */
 
-.dashboard-header { /* Styles the dashboard navigation header */
+.app-header { /* Styles the shared navigation header */
     background-color: #123b43; /* Uses a deep pharmacy-teal header background */
-} /* Ends dashboard header styling */
+} /* Ends shared header styling */
 
-.dashboard-header .nav-link { /* Styles links in the dashboard navigation */
+.app-header .navbar-brand { /* Styles the app name in the shared header */
+    color: #ffffff; /* Keeps the app name readable on the dark teal header */
+    font-weight: 700; /* Gives the app name strong visual emphasis */
+} /* Ends app name styling */
+
+.app-header .nav-link { /* Styles links in the shared navigation */
     border-radius: 0.375rem; /* Softens link corners for a polished appearance */
     color: #f5fbfa; /* Keeps navigation links legible on the dark background */
     padding: 0.5rem 0.75rem; /* Provides consistent clickable space around links */
-} /* Ends dashboard navigation link styling */
+} /* Ends shared navigation link styling */
 
-.dashboard-header .nav-link:hover, /* Selects hovered navigation links */
-.dashboard-header .nav-link:focus { /* Selects keyboard-focused navigation links */
+.app-header .nav-link:hover, /* Selects hovered navigation links */
+.app-header .nav-link:focus { /* Selects keyboard-focused navigation links */
     background-color: #245963; /* Highlights links during pointer or keyboard interaction */
     color: #ffffff; /* Maintains strong contrast on the highlighted link */
 } /* Ends navigation interaction styling */
 
-.dashboard-header .nav-link.active { /* Distinguishes the current page link */
+.app-header .nav-link.active { /* Distinguishes the current page link */
     background-color: #ffffff; /* Adds a clear light background to the active link */
     color: #123b43; /* Keeps the active link text readable */
     font-weight: 600; /* Gives the active link added emphasis */
 } /* Ends active navigation link styling */
 
-.dashboard-main { /* Styles the main dashboard content area */
+.app-main { /* Styles the main content area on every page */
     padding-bottom: 2rem; /* Separates the final section from the footer */
     padding-top: 2rem; /* Adds comfortable space below the navigation */
 } /* Ends main content styling */
 
-.dashboard-intro { /* Styles the dashboard introduction panel */
+.app-intro { /* Styles the introduction panel on every page */
     background-color: #ffffff; /* Provides a clear surface behind the page introduction */
     border-left: 0.3rem solid #197278; /* Adds a restrained pharmacy-teal accent */
     border-radius: 0.5rem; /* Softens the introduction panel edges */
     padding: 1.5rem; /* Gives the introduction text comfortable breathing room */
 } /* Ends introduction panel styling */
 
-.dashboard-intro p { /* Styles the supporting dashboard description */
+.app-intro p { /* Styles the supporting page description */
     color: #40575c; /* Keeps supporting copy readable while visually secondary */
     line-height: 1.6; /* Improves legibility for the descriptive sentence */
 } /* Ends description styling */
 
-.dashboard-page h2 { /* Styles dashboard section headings */
+.app-page h2 { /* Styles shared page section headings */
     color: #183f46; /* Reinforces heading hierarchy with the page palette */
     font-weight: 650; /* Makes section headings distinct without excessive weight */
 } /* Ends section heading styling */
@@ -148,7 +100,7 @@ h1 {
 } /* Ends summary label styling */
 
 .summary-value { /* Styles each summary metric value */
-    color: #123b43; /* Emphasizes counts with the primary dashboard colour */
+    color: #123b43; /* Emphasizes counts with the primary app colour */
     font-size: 1.8rem; /* Makes the inventory values prominent */
     font-weight: 700; /* Improves count visibility at a glance */
     line-height: 1.2; /* Keeps the metric cards vertically balanced */
@@ -160,7 +112,7 @@ h1 {
     border-radius: 0.5rem; /* Rounds the outer table container */
 } /* Ends stock table container styling */
 
-.stock-table-wrap .table { /* Styles the dashboard stock table */
+.stock-table-wrap .table { /* Styles the responsive stock table */
     min-width: 42rem; /* Preserves readable columns while the wrapper scrolls on phones */
 } /* Ends stock table styling */
 
@@ -192,6 +144,6 @@ h1 {
     padding: 0.45em 0.65em; /* Gives the status labels comfortable spacing */
 } /* Ends status badge styling */
 
-.site-footer { /* Styles the shared dashboard footer */
+.site-footer { /* Styles the shared site footer */
     background-color: #e7efef; /* Visually separates the footer from the main content */
-} /* Ends dashboard footer styling */
+} /* Ends site footer styling */
