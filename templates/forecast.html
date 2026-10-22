@@ -1,0 +1,138 @@
+{% extends 'base.html' %}                                    {# Use base.html: navbar, CSS links and footer come from there #}
+
+{% block title %}Demand Forecast{% endblock %}               {# Browser tab title #}
+
+{% block content %}                                          {# Start of this page's content (goes into the slot in base.html) #}
+
+<section class="mb-4">                                       <!-- Page heading -->
+    <h1>Demand Forecast</h1>
+    <p class="text-muted">Weekly demand compared with the forecast. Method: simple exponential smoothing (α = 0.3). Accuracy is measured on the last 4 weeks, which the model does not use to set itself up.</p> <!-- States the method and test period (feedback point) -->
+</section>
+
+<section class="mb-4">                                       <!-- Which product is shown -->
+    <h2 class="h4">Metformin 850mg</h2>
+</section>
+
+<section class="row g-3 mb-4">                               <!-- Row of 4 accuracy cards -->
+    <div class="col-6 col-md-3">                             <!-- Half width on phones, quarter on bigger screens -->
+        <div class="card text-center h-100"><div class="card-body"> <!-- h-100 = all cards the same height -->
+            <h3 class="h6 text-muted">Next Week's Forecast</h3>
+            <p class="fs-4 fw-bold mb-0">59 units</p>        <!-- Week 13 forecast: 59.4 rounded -->
+        </div></div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card text-center h-100"><div class="card-body">
+            <h3 class="h6 text-muted">MAD</h3>               <!-- Mean Absolute Deviation = average error in units -->
+            <p class="fs-4 fw-bold mb-0">2.2 units</p>       <!-- (2.4 + 2.3 + 0.4 + 3.8) ÷ 4 -->
+        </div></div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card text-center h-100"><div class="card-body">
+            <h3 class="h6 text-muted">WAPE</h3>              <!-- Weighted Absolute Percentage Error = total error ÷ total demand -->
+            <p class="fs-4 fw-bold mb-0">3.7%</p>            <!-- 8.8 ÷ 236 -->
+        </div></div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card text-center h-100"><div class="card-body">
+            <h3 class="h6 text-muted">Naive Forecast WAPE</h3> <!-- Benchmark: "next week = last week" -->
+            <p class="fs-4 fw-bold mb-0">5.5%</p>            <!-- 13 ÷ 236 -->
+        </div></div>
+    </div>
+</section>
+
+<div class="alert alert-success" role="status">              <!-- Green message box -->
+    The forecast is more accurate than the naive benchmark for this product (3.7% vs 5.5% WAPE).
+</div>
+
+<section class="card mb-4">                                  <!-- Card around the graph -->
+    <div class="card-body">
+        <h2 class="h5">Actual vs Forecast Demand (weekly)</h2>
+        <div class="chart-legend mb-2">                      <!-- Legend (colour marks come from style.css) -->
+            <span class="legend-actual">Actual demand</span>
+            <span class="legend-forecast">Forecast</span>
+            <span class="legend-test">Test weeks</span>
+        </div>
+        <svg viewBox="0 0 620 240" class="forecast-chart" role="img" aria-label="Line graph of actual weekly demand compared with the forecast for Metformin 850mg"> <!-- SVG = HTML's drawing tag; aria-label describes it for screen readers -->
+            <rect x="387" y="20" width="180" height="180" class="test-area"/>        <!-- Shaded box behind the test weeks (W9 to W12) -->
+            <line x1="50" y1="200" x2="600" y2="200" class="grid"/>                  <!-- Gridline at 40 units -->
+            <line x1="50" y1="140" x2="600" y2="140" class="grid"/>                  <!-- Gridline at 50 units -->
+            <line x1="50" y1="80"  x2="600" y2="80"  class="grid"/>                  <!-- Gridline at 60 units -->
+            <line x1="50" y1="20"  x2="600" y2="20"  class="grid"/>                  <!-- Gridline at 70 units -->
+            <text x="40" y="204" class="axis-label" text-anchor="end">40</text>      <!-- Y-axis numbers -->
+            <text x="40" y="144" class="axis-label" text-anchor="end">50</text>
+            <text x="40" y="84"  class="axis-label" text-anchor="end">60</text>
+            <text x="40" y="24"  class="axis-label" text-anchor="end">70</text>
+            <polyline class="line-actual"   points="50,128 95,92 140,110 185,74 230,116 275,98 320,62 365,86 410,104 455,80 500,92 545,68"/> <!-- Actual demand W1 to W12, joined point to point -->
+            <polyline class="line-forecast" points="50,128 95,128 140,117 185,115 230,103 275,107 320,104 365,91 410,90 455,94 500,90 545,90 590,84"/> <!-- Forecast W1 to W13 -->
+            <text x="50"  y="225" class="axis-label" text-anchor="middle">W1</text>  <!-- X-axis labels (every other week) -->
+            <text x="140" y="225" class="axis-label" text-anchor="middle">W3</text>
+            <text x="230" y="225" class="axis-label" text-anchor="middle">W5</text>
+            <text x="320" y="225" class="axis-label" text-anchor="middle">W7</text>
+            <text x="410" y="225" class="axis-label" text-anchor="middle">W9</text>
+            <text x="500" y="225" class="axis-label" text-anchor="middle">W11</text>
+            <text x="590" y="225" class="axis-label" text-anchor="middle">W13</text>
+        </svg>
+    </div>
+</section>
+
+<section class="card mb-4">                                  <!-- Weekly figures table -->
+    <div class="card-body">
+        <h2 class="h5">Weekly Figures</h2>
+        <p class="text-muted small">Shaded rows are the test weeks used to measure accuracy.</p>
+        <div class="table-responsive">                       <!-- Scrolls sideways on small screens -->
+            <table class="table table-sm align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Week</th>            <!-- scope="col" = heading for this column (accessibility) -->
+                        <th scope="col">Actual Demand</th>
+                        <th scope="col">Forecast</th>
+                        <th scope="col">Absolute Error</th>  <!-- |actual − forecast| -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>W1</td><td>52</td><td>52.0</td><td>0.0</td></tr>     <!-- First forecast = first actual -->
+                    <tr><td>W2</td><td>58</td><td>52.0</td><td>6.0</td></tr>
+                    <tr><td>W3</td><td>55</td><td>53.8</td><td>1.2</td></tr>     <!-- 52.0 + 0.3 × (58 − 52.0) = 53.8 -->
+                    <tr><td>W4</td><td>61</td><td>54.2</td><td>6.8</td></tr>
+                    <tr><td>W5</td><td>54</td><td>56.2</td><td>2.2</td></tr>
+                    <tr><td>W6</td><td>57</td><td>55.5</td><td>1.5</td></tr>
+                    <tr><td>W7</td><td>63</td><td>56.0</td><td>7.0</td></tr>
+                    <tr><td>W8</td><td>59</td><td>58.1</td><td>0.9</td></tr>
+                    <tr class="table-info"><td>W9</td><td>56</td><td>58.4</td><td>2.4</td></tr>   <!-- Test week (light blue) -->
+                    <tr class="table-info"><td>W10</td><td>60</td><td>57.7</td><td>2.3</td></tr>
+                    <tr class="table-info"><td>W11</td><td>58</td><td>58.4</td><td>0.4</td></tr>
+                    <tr class="table-info"><td>W12</td><td>62</td><td>58.3</td><td>3.8</td></tr>
+                    <tr><td>W13</td><td>—</td><td>59.4</td><td>—</td></tr>        <!-- Future week: forecast only -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="card">                                       <!-- Demand patterns for all products -->
+    <div class="card-body">
+        <h2 class="h5">Demand Patterns</h2>
+        <p class="text-muted small">Identifies fast-moving, steady, slow-moving and changing products.</p> <!-- Objective 3 -->
+        <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Avg Weekly Demand</th>
+                        <th scope="col">Trend</th>
+                        <th scope="col">Pattern</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Amoxicillin 500mg</td><td>140</td><td>Stable</td><td><span class="badge bg-success">Fast-moving</span></td></tr>
+                    <tr><td>Ibuprofen 200mg</td><td>80</td><td>Stable</td><td><span class="badge bg-success">Fast-moving</span></td></tr>
+                    <tr><td>Metformin 850mg</td><td>58</td><td>Stable</td><td><span class="badge bg-primary">Steady</span></td></tr>
+                    <tr><td>Paracetamol 500mg</td><td>35</td><td>Stable</td><td><span class="badge bg-primary">Steady</span></td></tr>
+                    <tr><td>Cetirizine 10mg</td><td>20</td><td>Rising</td><td><span class="badge bg-warning text-dark">Changing</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}                                               {# End of this page's content #}
