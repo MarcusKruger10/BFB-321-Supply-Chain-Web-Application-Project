@@ -1,0 +1,80 @@
+/* style.css: our own styles, loaded after Bootstrap so these rules win */
+
+/* ===== Whole page ===== */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;   /* Clean font, with backups if it's missing */
+    background-color: #f8f9fa;                    /* Very light grey page background */
+    color: #212529;                               /* Dark grey text (easier on the eyes than pure black) */
+}
+
+h1 {
+    font-size: 1.8rem;                            /* Same main-heading size on every page */
+    font-weight: 600;                             /* Semi-bold */
+}
+
+/* ===== Cards (reused on every page) ===== */
+.card {
+    border-radius: 10px;                          /* Slightly rounder corners than Bootstrap's default */
+    border-color: #dee2e6;                        /* Soft grey border */
+}
+
+/* ===== Footer ===== */
+.site-footer {
+    text-align: center;                           /* Centre the text */
+    color: #6c757d;                               /* Muted grey */
+    padding: 20px 0;                              /* Space above and below */
+    font-size: 0.9rem;                            /* Slightly smaller text */
+}
+
+/* ===== Graph legend ===== */
+.chart-legend span {
+    margin-right: 16px;                           /* Space between legend items */
+    font-size: 0.9rem;
+}
+
+.chart-legend span::before {                      /* Draws a small coloured mark before each legend word */
+    content: "";                                  /* Empty: we only want the shape */
+    display: inline-block;
+    width: 22px;
+    height: 0;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.legend-actual::before   { border-top: 3px solid #0d6efd; }   /* Solid blue line = actual demand */
+.legend-forecast::before { border-top: 3px dashed #fd7e14; }  /* Dashed orange line = forecast */
+.legend-test::before     { border-top: 10px solid #cfe2ff; }  /* Light blue block = test weeks */
+
+/* ===== Graph (SVG) ===== */
+.forecast-chart {
+    width: 100%;                                  /* Graph fills the card's width */
+    height: auto;                                 /* Keeps its shape when resized (works on phones) */
+}
+
+.forecast-chart .grid {
+    stroke: #dee2e6;                              /* Light grey gridlines */
+    stroke-width: 1;
+}
+
+.forecast-chart .axis-label {
+    font-size: 12px;                              /* Small axis numbers */
+    fill: #6c757d;                                /* Grey text (in SVG, text colour is "fill") */
+}
+
+.forecast-chart .test-area {
+    fill: #cfe2ff;                                /* Light blue box behind the test weeks */
+    opacity: 0.6;                                 /* Slightly see-through */
+}
+
+.forecast-chart .line-actual {
+    fill: none;                                   /* Don't fill under the line */
+    stroke: #0d6efd;                              /* Blue line */
+    stroke-width: 3;
+}
+
+.forecast-chart .line-forecast {
+    fill: none;
+    stroke: #fd7e14;                              /* Orange line */
+    stroke-width: 3;
+    stroke-dasharray: 8 5;                        /* Dashed: 8px line, 5px gap */
+}
