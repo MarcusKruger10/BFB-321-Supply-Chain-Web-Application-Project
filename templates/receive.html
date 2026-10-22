@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">                                  <!-- Character set -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Fits phone screens -->
+    <title>Receive Stock | Pharma Stock Tracker</title>           <!-- Browser tab text -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+    <link href="../static/css/style.css" rel="stylesheet">  <!-- Our CSS (../ = up one folder, then into static/css) -->
+</head>
+<body>
+
+    <header>
+        <nav>                                               <!-- Same links on every page -->
+            <a href="dashboard.html">Dashboard</a>
+            <a href="receive.html">Receive Stock</a>
+            <a href="dispense.html">Dispense</a>
+            <a href="alerts.html">Alerts</a>
+            <a href="forecast.html">Forecast</a>
+            <a href="expiry_risk.html">Expiry Risk</a>
+            <a href="kpi.html">KPIs</a>
+            <a href="login.html">Log In</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Receive Stock</h1>
+        <p>Capture a delivery from a supplier. Each delivery is recorded as a new batch with its own expiry date.</p>
+
+        <form action="#" method="post">
+            <p>
+                <label for="product">Product</label>
+                <select id="product" name="product_id" required>
+                    <option value="">Choose a product</option>
+                    <option value="1">Amoxicillin 500mg</option>
+                    <option value="2">Paracetamol 500mg</option>
+                    <option value="3">Metformin 850mg</option>
+                    <option value="4">Ibuprofen 200mg</option>
+                    <option value="5">Cetirizine 10mg</option>
+                </select>
+            </p>
+            <p>
+                <label for="supplier">Supplier</label>
+                <select id="supplier" name="supplier_id" required>
+                    <option value="">Choose a supplier</option>
+                    <option value="1">Wholesaler A</option>
+                    <option value="2">Wholesaler B</option>
+                </select>
+            </p>
+            <p>
+                <label for="batch_no">Batch number</label>
+                <input type="text" id="batch_no" name="batch_no" placeholder="e.g. B-2150" required>
+            </p>
+            <p>
+                <label for="quantity">Quantity received</label>
+                <input type="number" id="quantity" name="quantity" min="1" step="1" required> <!-- Whole number, at least 1 -->
+            </p>
+            <p>
+                <label for="expiry_date">Expiry date</label>
+                <input type="date" id="expiry_date" name="expiry_date" required>
+                <small>Expired stock cannot be received.</small>
+            </p>
+            <p>
+                <label for="received_date">Date received</label>
+                <input type="date" id="received_date" name="received_date" required>
+            </p>
+            <p>
+                <label for="po_number">Purchase order number (optional)</label>
+                <input type="text" id="po_number" name="po_number" placeholder="e.g. PO-0042">
+                <small>Linking a delivery to its order lets the system measure supplier lead time.</small>
+            </p>
+            <button type="submit">Save delivery</button>
+            <button type="reset">Clear</button>
+        </form>
+
+        <h2>Recent Deliveries</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Product</th>
+                    <th>Batch</th>
+                    <th>Quantity</th>
+                    <th>Expiry</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>2026-10-19</td><td>Ibuprofen 200mg</td><td>B-2147</td><td>200</td><td>2027-06-01</td></tr>
+                <tr><td>2026-10-16</td><td>Amoxicillin 500mg</td><td>B-2143</td><td>150</td><td>2027-03-15</td></tr>
+                <tr><td>2026-10-14</td><td>Metformin 850mg</td><td>B-2140</td><td>4</td><td>2027-05-10</td></tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>BFB 321 - Pharmaceutical Stock Level Tracker</p>
+    </footer>
+
+</body>
+</html>

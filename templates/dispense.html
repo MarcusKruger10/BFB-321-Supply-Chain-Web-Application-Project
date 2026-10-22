@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">                                  <!-- Character set -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Fits phone screens -->
+    <title>Dispense | Pharma Stock Tracker</title>           <!-- Browser tab text -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+    <link href="../static/css/style.css" rel="stylesheet">  <!-- Our CSS (../ = up one folder, then into static/css) -->
+</head>
+<body>
+
+    <header>
+        <nav>                                               <!-- Same links on every page -->
+            <a href="dashboard.html">Dashboard</a>
+            <a href="receive.html">Receive Stock</a>
+            <a href="dispense.html">Dispense</a>
+            <a href="alerts.html">Alerts</a>
+            <a href="forecast.html">Forecast</a>
+            <a href="expiry_risk.html">Expiry Risk</a>
+            <a href="kpi.html">KPIs</a>
+            <a href="login.html">Log In</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Dispense Medicine</h1>
+        <p>Record medicine sold or dispensed. Stock is taken from the batch that expires first (FEFO).</p>
+
+        <form action="#" method="post">
+            <p>
+                <label for="product">Product</label>
+                <select id="product" name="product_id" required>
+                    <option value="">Choose a product</option>
+                    <option value="1">Amoxicillin 500mg</option>
+                    <option value="2">Paracetamol 500mg</option>
+                    <option value="3">Metformin 850mg</option>
+                    <option value="4">Ibuprofen 200mg</option>
+                    <option value="5">Cetirizine 10mg</option>
+                </select>
+            </p>
+            <p>
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" min="1" step="1" required>
+                <small>Cannot be more than the stock on hand.</small>
+            </p>
+            <p>
+                <label for="dispense_date">Date</label>
+                <input type="date" id="dispense_date" name="dispense_date" required>
+            </p>
+            <p>
+                <label for="reference">Script or sale reference (optional)</label>
+                <input type="text" id="reference" name="reference" placeholder="e.g. RX-10293">
+            </p>
+            <button type="submit">Record dispensing</button>
+            <button type="reset">Clear</button>
+        </form>
+
+        <h2>Recent Dispensing</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Batch Used</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>2026-10-21</td><td>Metformin 850mg</td><td>4</td><td>B-2091</td></tr>
+                <tr><td>2026-10-21</td><td>Paracetamol 500mg</td><td>10</td><td>B-2133</td></tr>
+                <tr><td>2026-10-20</td><td>Amoxicillin 500mg</td><td>21</td><td>B-2129</td></tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>BFB 321 - Pharmaceutical Stock Level Tracker</p>
+    </footer>
+
+</body>
+</html>
