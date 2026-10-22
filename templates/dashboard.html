@@ -7,57 +7,127 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
     <link href="../static/css/style.css" rel="stylesheet">  <!-- Our CSS (../ = up one folder, then into static/css) -->
 </head>
-<body>
+<body class="dashboard-page"> <!-- Applies dashboard-specific styling without changing other pages -->
 
-    <header>
-        <nav>                                               <!-- Same links on every page -->
-            <a href="dashboard.html">Dashboard</a>
-            <a href="receive.html">Receive Stock</a>
-            <a href="dispense.html">Dispense</a>
-            <a href="alerts.html">Alerts</a>
-            <a href="forecast.html">Forecast</a>
-            <a href="expiry_risk.html">Expiry Risk</a>
-            <a href="kpi.html">KPIs</a>
-            <a href="login.html">Log In</a>
-        </nav>
-    </header>
+    <header class="dashboard-header"> <!-- Provides the branded page header -->
+        <nav class="navbar navbar-expand-md"> <!-- Same links on every page; links wrap without a toggle button -->
+            <div class="container"> <!-- Aligns navigation content with the page container -->
+                <div class="navbar-nav flex-row flex-wrap gap-2"> <!-- Keeps navigation links in a wrapping row -->
+                    <a class="nav-link active" href="dashboard.html" aria-current="page">Dashboard</a> <!-- Marks the current page in the navigation -->
+                    <a class="nav-link" href="receive.html">Receive Stock</a> <!-- Links to stock receiving -->
+                    <a class="nav-link" href="dispense.html">Dispense</a> <!-- Links to dispensing -->
+                    <a class="nav-link" href="alerts.html">Alerts</a> <!-- Links to alerts -->
+                    <a class="nav-link" href="forecast.html">Forecast</a> <!-- Links to forecasting -->
+                    <a class="nav-link" href="expiry_risk.html">Expiry Risk</a> <!-- Links to expiry risk -->
+                    <a class="nav-link" href="kpi.html">KPIs</a> <!-- Links to key performance indicators -->
+                    <a class="nav-link" href="login.html">Log In</a> <!-- Links to login -->
+                </div> <!-- Ends the wrapping navigation links -->
+            </div> <!-- Ends the navigation container -->
+        </nav> <!-- Ends the site navigation -->
+    </header> <!-- Ends the page header -->
 
-    <main>
-        <h1>Inventory Dashboard</h1>
-        <p>Current stock levels, reorder status and nearest expiry for all products. Select a product to see its batches.</p>
+    <main class="container dashboard-main"> <!-- Centers the dashboard content and spaces the page sections -->
+        <section class="dashboard-intro mb-4"> <!-- Groups the dashboard title and description -->
+            <h1 class="mb-2">Inventory Dashboard</h1> <!-- Identifies the current page -->
+            <p class="mb-0">Current stock levels, reorder status and nearest expiry for all products. Select a product to see its batches.</p> <!-- Summarizes the dashboard purpose -->
+        </section> <!-- Ends the dashboard introduction -->
 
-        <h2>Summary</h2>
-        <ul>
-            <li>Total products: 5</li>
-            <li>Sufficient: 3</li>
-            <li>Low: 1</li>
-            <li>Reorder needed: 1</li>
-        </ul>
+        <section class="mb-5" aria-labelledby="summary-heading"> <!-- Groups the inventory summary cards -->
+            <h2 id="summary-heading" class="h4 mb-3">Summary</h2> <!-- Labels the summary section -->
+            <div class="row row-cols-2 row-cols-md-4 g-3"> <!-- Displays two cards per row on phones and four on wider screens -->
+                <div class="col"> <!-- Reserves one responsive summary-card column -->
+                    <div class="card h-100 summary-card"> <!-- Presents the total product count in a Bootstrap card -->
+                        <div class="card-body"> <!-- Adds standard Bootstrap card content spacing -->
+                            <h3 class="summary-label">Total products</h3> <!-- Labels the total product metric -->
+                            <p class="summary-value mb-0">5</p> <!-- Shows the total product count -->
+                        </div> <!-- Ends the total product card content -->
+                    </div> <!-- Ends the total product card -->
+                </div> <!-- Ends the total product column -->
+                <div class="col"> <!-- Reserves one responsive summary-card column -->
+                    <div class="card h-100 summary-card"> <!-- Presents the sufficient count in a Bootstrap card -->
+                        <div class="card-body"> <!-- Adds standard Bootstrap card content spacing -->
+                            <h3 class="summary-label">Sufficient</h3> <!-- Labels the sufficient stock metric -->
+                            <p class="summary-value mb-0">3</p> <!-- Shows the sufficient product count -->
+                        </div> <!-- Ends the sufficient card content -->
+                    </div> <!-- Ends the sufficient card -->
+                </div> <!-- Ends the sufficient card column -->
+                <div class="col"> <!-- Reserves one responsive summary-card column -->
+                    <div class="card h-100 summary-card"> <!-- Presents the low count in a Bootstrap card -->
+                        <div class="card-body"> <!-- Adds standard Bootstrap card content spacing -->
+                            <h3 class="summary-label">Low</h3> <!-- Labels the low stock metric -->
+                            <p class="summary-value mb-0">1</p> <!-- Shows the low product count -->
+                        </div> <!-- Ends the low card content -->
+                    </div> <!-- Ends the low card -->
+                </div> <!-- Ends the low card column -->
+                <div class="col"> <!-- Reserves one responsive summary-card column -->
+                    <div class="card h-100 summary-card"> <!-- Presents the reorder count in a Bootstrap card -->
+                        <div class="card-body"> <!-- Adds standard Bootstrap card content spacing -->
+                            <h3 class="summary-label">Reorder needed</h3> <!-- Labels the reorder metric -->
+                            <p class="summary-value mb-0">1</p> <!-- Shows the reorder product count -->
+                        </div> <!-- Ends the reorder card content -->
+                    </div> <!-- Ends the reorder card -->
+                </div> <!-- Ends the reorder card column -->
+            </div> <!-- Ends the responsive summary-card row -->
+        </section> <!-- Ends the inventory summary section -->
 
-        <h2>Stock Levels</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Current Stock</th>
-                    <th>Reorder Point</th>
-                    <th>Status</th>
-                    <th>Nearest Expiry</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td><a href="product_detail.html">Amoxicillin 500mg</a></td><td>240</td><td>120</td><td>Sufficient</td><td>2027-01-10</td></tr>
-                <tr><td><a href="product_detail.html">Paracetamol 500mg</a></td><td>60</td><td>50</td><td>Low</td><td>2026-11-02</td></tr>
-                <tr><td><a href="product_detail.html">Metformin 850mg</a></td><td>18</td><td>40</td><td>Reorder Needed</td><td>2026-11-15</td></tr>
-                <tr><td><a href="product_detail.html">Ibuprofen 200mg</a></td><td>310</td><td>150</td><td>Sufficient</td><td>2027-02-28</td></tr>
-                <tr><td><a href="product_detail.html">Cetirizine 10mg</a></td><td>85</td><td>45</td><td>Sufficient</td><td>2026-11-12</td></tr>
-            </tbody>
-        </table>
-    </main>
+        <section class="mb-5" aria-labelledby="stock-heading"> <!-- Groups the detailed stock table -->
+            <h2 id="stock-heading" class="h4 mb-3">Stock Levels</h2> <!-- Labels the stock table section -->
+            <div class="table-responsive stock-table-wrap"> <!-- Allows the table to scroll horizontally on narrow screens -->
+                <table class="table table-hover align-middle mb-0"> <!-- Applies Bootstrap table styling and row hover feedback -->
+                    <thead class="table-light"> <!-- Gives the table headings a light Bootstrap background -->
+                        <tr> <!-- Starts the table heading row -->
+                            <th scope="col">Product</th> <!-- Identifies the product column -->
+                            <th scope="col">Current Stock</th> <!-- Identifies the current stock column -->
+                            <th scope="col">Reorder Point</th> <!-- Identifies the reorder point column -->
+                            <th scope="col">Status</th> <!-- Identifies the status column -->
+                            <th scope="col">Nearest Expiry</th> <!-- Identifies the nearest expiry column -->
+                        </tr> <!-- Ends the table heading row -->
+                    </thead> <!-- Ends the table headings -->
+                    <tbody> <!-- Starts the product stock rows -->
+                        <tr> <!-- Starts the sufficient-stock product row -->
+                            <td><a href="product_detail.html">Amoxicillin 500mg</a></td> <!-- Links to the Amoxicillin product details -->
+                            <td>240</td> <!-- Shows the current Amoxicillin stock -->
+                            <td>120</td> <!-- Shows the Amoxicillin reorder point -->
+                            <td><span class="badge bg-success">Sufficient</span></td> <!-- Displays the sufficient status as a green badge -->
+                            <td>2027-01-10</td> <!-- Shows the nearest Amoxicillin expiry date -->
+                        </tr> <!-- Ends the Amoxicillin product row -->
+                        <tr> <!-- Starts the low-stock product row -->
+                            <td><a href="product_detail.html">Paracetamol 500mg</a></td> <!-- Links to the Paracetamol product details -->
+                            <td>60</td> <!-- Shows the current Paracetamol stock -->
+                            <td>50</td> <!-- Shows the Paracetamol reorder point -->
+                            <td><span class="badge bg-warning text-dark">Low</span></td> <!-- Displays the low status as a yellow badge with dark text -->
+                            <td>2026-11-02</td> <!-- Shows the nearest Paracetamol expiry date -->
+                        </tr> <!-- Ends the Paracetamol product row -->
+                        <tr class="table-danger"> <!-- Lightly shades the reorder-needed product row red -->
+                            <td><a href="product_detail.html">Metformin 850mg</a></td> <!-- Links to the Metformin product details -->
+                            <td>18</td> <!-- Shows the current Metformin stock -->
+                            <td>40</td> <!-- Shows the Metformin reorder point -->
+                            <td><span class="badge bg-danger">Reorder Needed</span></td> <!-- Displays the reorder status as a red badge -->
+                            <td>2026-11-15</td> <!-- Shows the nearest Metformin expiry date -->
+                        </tr> <!-- Ends the Metformin product row -->
+                        <tr> <!-- Starts the sufficient-stock product row -->
+                            <td><a href="product_detail.html">Ibuprofen 200mg</a></td> <!-- Links to the Ibuprofen product details -->
+                            <td>310</td> <!-- Shows the current Ibuprofen stock -->
+                            <td>150</td> <!-- Shows the Ibuprofen reorder point -->
+                            <td><span class="badge bg-success">Sufficient</span></td> <!-- Displays the sufficient status as a green badge -->
+                            <td>2027-02-28</td> <!-- Shows the nearest Ibuprofen expiry date -->
+                        </tr> <!-- Ends the Ibuprofen product row -->
+                        <tr> <!-- Starts the sufficient-stock product row -->
+                            <td><a href="product_detail.html">Cetirizine 10mg</a></td> <!-- Links to the Cetirizine product details -->
+                            <td>85</td> <!-- Shows the current Cetirizine stock -->
+                            <td>45</td> <!-- Shows the Cetirizine reorder point -->
+                            <td><span class="badge bg-success">Sufficient</span></td> <!-- Displays the sufficient status as a green badge -->
+                            <td>2026-11-12</td> <!-- Shows the nearest Cetirizine expiry date -->
+                        </tr> <!-- Ends the Cetirizine product row -->
+                    </tbody> <!-- Ends the product stock rows -->
+                </table> <!-- Ends the stock table -->
+            </div> <!-- Ends the responsive table wrapper -->
+        </section> <!-- Ends the stock table section -->
+    </main> <!-- Ends the dashboard content -->
 
-    <footer>
-        <p>BFB 321 - Pharmaceutical Stock Level Tracker</p>
-    </footer>
+    <footer class="site-footer"> <!-- Applies the shared footer styling -->
+        <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p> <!-- Shows the project footer text -->
+    </footer> <!-- Ends the page footer -->
 
 </body>
 </html>

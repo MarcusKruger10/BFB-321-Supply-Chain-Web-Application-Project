@@ -1,71 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">                                  <!-- Character set -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Fits phone screens -->
-    <title>Expiry Risk | Pharma Stock Tracker</title>           <!-- Browser tab text -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
-    <link href="../static/css/style.css" rel="stylesheet">  <!-- Our CSS (../ = up one folder, then into static/css) -->
-</head>
-<body>
-
-    <header>
-        <nav>                                               <!-- Same links on every page -->
-            <a href="dashboard.html">Dashboard</a>
-            <a href="receive.html">Receive Stock</a>
-            <a href="dispense.html">Dispense</a>
-            <a href="alerts.html">Alerts</a>
-            <a href="forecast.html">Forecast</a>
-            <a href="expiry_risk.html">Expiry Risk</a>
-            <a href="kpi.html">KPIs</a>
-            <a href="login.html">Log In</a>
-        </nav>
-    </header>
-
-    <main>
-        <h1>Expiry Risk</h1>
-        <p>Batches compared with expected demand, to find stock unlikely to be used before it expires. Calculated as at 2026-10-22.</p>
-
-        <h2>At-Risk Stock</h2>
-        <ul>
-            <li>Batches at risk: 1</li>
-            <li>Units at risk: 25</li>
-            <li>Value at risk: R62.50</li>
-        </ul>
-
-        <h2>Batches Expiring Soonest</h2>
-        <p>Projected use = average daily demand x days to expiry. Units at risk = quantity - projected use (if positive).</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Batch</th>
-                    <th>Quantity</th>
-                    <th>Expiry Date</th>
-                    <th>Days to Expiry</th>
-                    <th>Avg Daily Demand</th>
-                    <th>Projected Use</th>
-                    <th>Units at Risk</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Paracetamol 500mg</td><td>B-2133</td><td>35</td><td>2026-11-02</td><td>11</td><td>5</td><td>55</td><td>0</td></tr>
-                <tr><td>Cetirizine 10mg</td><td>B-2101</td><td>85</td><td>2026-11-12</td><td>21</td><td>2.9</td><td>60</td><td>25</td></tr>
-                <tr><td>Metformin 850mg</td><td>B-2091</td><td>6</td><td>2026-11-15</td><td>24</td><td>8</td><td>192</td><td>0</td></tr>
-            </tbody>
-        </table>
-
-        <h2>Suggested Actions for At-Risk Stock</h2>
-        <ul>
-            <li>Return to supplier if the supplier accepts returns</li>
-            <li>Redistribute to another branch or facility</li>
-            <li>Reduce future orders for this product</li>
-        </ul>
-    </main>
-
-    <footer>
-        <p>BFB 321 - Pharmaceutical Stock Level Tracker</p>
-    </footer>
-
-</body>
-</html>
+<!DOCTYPE html> <!-- Declares the document as HTML5 -->
+<html lang="en"> <!-- Sets the document language to English -->
+<head> <!-- Begins page metadata -->
+    <meta charset="UTF-8"> <!-- Sets the page character encoding --> <!-- Character set -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapts the page to phone screens --> <!-- Fits phone screens -->
+    <title>Expiry Risk | Pharma Stock Tracker</title> <!-- Sets the browser tab title --> <!-- Browser tab text -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Loads Bootstrap 5 components and utilities --> <!-- Bootstrap -->
+    <link href="../static/css/style.css" rel="stylesheet"> <!-- Loads the shared project stylesheet --> <!-- Our CSS (../ = up one folder, then into static/css) -->
+</head> <!-- Ends page metadata -->
+<body class="dashboard-page"> <!-- Applies the shared dashboard visual theme -->
+    <header class="dashboard-header"> <!-- Provides the shared dark navigation header -->
+        <nav class="navbar navbar-expand-md"> <!-- Creates the responsive Bootstrap navbar without a toggle --> <!-- Same links on every page -->
+            <div class="container"> <!-- Aligns navigation content to the page container -->
+                <div class="navbar-nav flex-row flex-wrap gap-2"> <!-- Keeps navigation links in a row that wraps on small screens -->
+                    <a class="nav-link" href="dashboard.html">Dashboard</a> <!-- Links to the dashboard -->
+                    <a class="nav-link" href="receive.html">Receive Stock</a> <!-- Links to stock receiving -->
+                    <a class="nav-link" href="dispense.html">Dispense</a> <!-- Links to dispensing -->
+                    <a class="nav-link" href="alerts.html">Alerts</a> <!-- Links to reorder alerts -->
+                    <a class="nav-link" href="forecast.html">Forecast</a> <!-- Links to demand forecasts -->
+                    <a class="nav-link active" href="expiry_risk.html" aria-current="page">Expiry Risk</a> <!-- Marks the current page in the navbar -->
+                    <a class="nav-link" href="kpi.html">KPIs</a> <!-- Links to key performance indicators -->
+                    <a class="nav-link" href="login.html">Log In</a> <!-- Links to login -->
+                </div> <!-- Ends the navigation links -->
+            </div> <!-- Ends the navigation container -->
+        </nav> <!-- Ends the shared navbar -->
+    </header> <!-- Ends the shared page header -->
+    <main class="container dashboard-main"> <!-- Centers the page content and applies shared spacing -->
+        <section class="card dashboard-intro mb-4"> <!-- Places the page introduction in a Bootstrap card -->
+            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
+                <h1 class="mb-2">Expiry Risk</h1> <!-- Shows the page heading -->
+                <p class="mb-0">Batches compared with expected demand, to find stock unlikely to be used before it expires. Calculated as at 2026-10-22.</p> <!-- Preserves the expiry risk explanation -->
+            </div> <!-- Ends the introduction card body -->
+        </section> <!-- Ends the introduction card -->
+        <section class="card mb-4"> <!-- Places the at-risk stock summary in a Bootstrap card -->
+            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
+                <h2 class="h4 mb-3">At-Risk Stock</h2> <!-- Labels the at-risk stock summary -->
+                <ul class="mb-0"> <!-- Presents the at-risk stock figures as a list -->
+                    <li>Batches at risk: 1</li> <!-- Preserves the batches at risk figure -->
+                    <li>Units at risk: 25</li> <!-- Preserves the units at risk figure -->
+                    <li>Value at risk: R62.50</li> <!-- Preserves the value at risk figure -->
+                </ul> <!-- Ends the at-risk stock figures -->
+            </div> <!-- Ends the at-risk summary card body -->
+        </section> <!-- Ends the at-risk summary card -->
+        <section class="card mb-4"> <!-- Places soonest-expiring batches in a Bootstrap card -->
+            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
+                <h2 class="h4 mb-2">Batches Expiring Soonest</h2> <!-- Labels the expiring batches section -->
+                <p>Projected use = average daily demand x days to expiry. Units at risk = quantity - projected use (if positive).</p> <!-- Preserves the risk calculation explanation -->
+                <div class="table-responsive stock-table-wrap"> <!-- Makes the expiry table responsive on small screens -->
+                    <table class="table table-hover align-middle mb-0"> <!-- Applies Bootstrap table styling -->
+                        <thead class="table-light"> <!-- Gives the expiry table header a light background -->
+                            <tr> <!-- Starts the expiry table headings -->
+                                <th scope="col">Product</th> <!-- Labels the product column -->
+                                <th scope="col">Batch</th> <!-- Labels the batch column -->
+                                <th scope="col">Quantity</th> <!-- Labels the quantity column -->
+                                <th scope="col">Expiry Date</th> <!-- Labels the expiry date column -->
+                                <th scope="col">Days to Expiry</th> <!-- Labels the days to expiry column -->
+                                <th scope="col">Avg Daily Demand</th> <!-- Labels the average demand column -->
+                                <th scope="col">Projected Use</th> <!-- Labels the projected use column -->
+                                <th scope="col">Units at Risk</th> <!-- Labels the units at risk column -->
+                            </tr> <!-- Ends the expiry table headings -->
+                        </thead> <!-- Ends the expiry table header -->
+                        <tbody> <!-- Starts expiry risk batch data -->
+                            <tr><td>Paracetamol 500mg</td><td>B-2133</td><td>35</td><td>2026-11-02</td><td>11</td><td>5</td><td>55</td><td>0</td></tr> <!-- Preserves the Paracetamol batch risk row -->
+                            <tr><td>Cetirizine 10mg</td><td>B-2101</td><td>85</td><td>2026-11-12</td><td>21</td><td>2.9</td><td>60</td><td>25</td></tr> <!-- Preserves the Cetirizine batch risk row -->
+                            <tr><td>Metformin 850mg</td><td>B-2091</td><td>6</td><td>2026-11-15</td><td>24</td><td>8</td><td>192</td><td>0</td></tr> <!-- Preserves the Metformin batch risk row -->
+                        </tbody> <!-- Ends expiry risk batch data -->
+                    </table> <!-- Ends the expiry risk table -->
+                </div> <!-- Ends the responsive expiry table wrapper -->
+            </div> <!-- Ends the expiring batches card body -->
+        </section> <!-- Ends the expiring batches card -->
+        <section class="card mb-4"> <!-- Places suggested stock actions in a Bootstrap card -->
+            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
+                <h2 class="h4 mb-3">Suggested Actions for At-Risk Stock</h2> <!-- Labels the suggested actions -->
+                <ul class="mb-0"> <!-- Presents suggested actions as a list -->
+                    <li>Return to supplier if the supplier accepts returns</li> <!-- Preserves the supplier return action -->
+                    <li>Redistribute to another branch or facility</li> <!-- Preserves the redistribution action -->
+                    <li>Reduce future orders for this product</li> <!-- Preserves the future ordering action -->
+                </ul> <!-- Ends the suggested action list -->
+            </div> <!-- Ends the suggested actions card body -->
+        </section> <!-- Ends the suggested actions card -->
+    </main> <!-- Ends the page content -->
+    <footer class="site-footer"> <!-- Applies the shared footer styling -->
+        <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p> <!-- Preserves the project footer text -->
+    </footer> <!-- Ends the page footer -->
+</body> <!-- Ends the page body -->
+</html> <!-- Ends the HTML document -->
