@@ -29,6 +29,9 @@ from statistics import NormalDist
 from models._validation import check_number
 
 DAYS_PER_YEAR = 365
+STATUS_SUFFICIENT = "Sufficient"
+STATUS_LOW = "Low"
+STATUS_REORDER = "Reorder Needed"
 
 
 def z_score(service_level):
@@ -126,3 +129,128 @@ def total_annual_cost(annual_demand, order_quantity, order_cost, holding_cost,
     return (n_orders * order_cost
             + (float(order_quantity) / 2) * holding_cost
             + float(annual_demand) * unit_price)
+
+
+
+def _round_to_pack(quantity, pack_size, mode):
+    """Round a quantity to a whole number of packs ('nearest' or 'down')."""
+    packs = quantity / pack_size
+    packs = math.floor(packs) if mode == "down" else math.floor(packs + 0.5)
+    return int(packs * pack_size)
+
+
+def recommended_order_quantity(avg_daily_demand, stock_on_hand, order_cost,
+                               holding_cost, shelf_life_days=None, pack_size=1):
+    """Return the suggested order quantity with each step of the working.
+
+    Steps: annual demand -> EOQ -> round to whole packs -> cap so stock
+    does not expire before it is used (cap = d * shelf life - stock).
+
+    Example (Metformin on the alerts page):
+        >>> r = recommended_order_quantity(8, 18, 150, 6, 180, pack_size=10)
+        >>> r["eoq_rounded"], r["expiry_cap"], r["order_quantity"]
+        (380, 1422.0, 380)
+    """
+    avg_daily_demand = check_number("avg_daily_demand", avg_daily_demand, minimum=0)
+    stock_on_hand = check_number("stock_on_hand", stock_on_hand, minimum=0)
+    if isinstance(pack_size, bool) or not isinstance(pack_size, int) or pack_size < 1:
+        raise ValueError(f"pack_size must be a whole number >= 1, got {pack_size!r}")
+
+    annual_demand = avg_daily_demand * DAYS_PER_YEAR
+    eoq = calculate_eoq(annual_demand, order_cost, holding_cost)
+
+    if annual_demand == 0:
+        eoq_rounded = 0
+    else:
+        eoq_rounded = max(pack_size, _round_to_pack(eoq, pack_size, "nearest"))
+
+    order_quantity = eoq_rounded
+    expiry_cap = None
+    capped = False
+    if shelf_life_days is not None:
+        shelf_life_days = check_number("shelf_life_days", shelf_life_days,
+                                       strictly_positive=True)
+        expiry_cap = max(0.0, avg_daily_demand * shelf_life_days - stock_on_hand)
+        if order_quantity > expiry_cap:
+            order_quantity = _round_to_pack(expiry_cap, pack_size, "down")
+            capped = True
+
+    return {
+        "annual_demand": annual_demand,
+        "eoq": eoq,
+        "eoq_rounded": eoq_rounded,
+        "expiry_cap": expiry_cap,
+        "capped": capped,
+        "order_quantity": int(order_quantity),
+    }
+
+
+def percentage_threshold(target_stock, percent=25):
+    """Return a threshold set as a percentage of a target stock level.
+
+    Example:
+        >>> percentage_threshold(200, 25)
+        50.0
+    """
+    target_stock = check_number("target_stock", target_stock, minimum=0)
+    percent = check_number("percent", percent, minimum=0)
+    if percent > 100:
+        raise ValueError(f"percent must be between 0 and 100, got {percent}")
+    return target_stock * percent / 100
+
+
+def effective_threshold(calculated_reorder_point, pharmacist_override=None):
+    """Return the pharmacist's override if set, otherwise the calculated ROP.
+
+    Example:
+        >>> effective_threshold(40.0), effective_threshold(40.0, 55)
+        (40.0, 55.0)
+    """
+    calculated_reorder_point = check_number(
+        "calculated_reorder_point", calculated_reorder_point, minimum=0)
+    if pharmacist_override is None:
+        return calculated_reorder_point
+    return check_number("pharmacist_override", pharmacist_override, minimum=0)
+
+
+def days_of_stock(stock_on_hand, avg_daily_demand):
+    """Return how many days current stock lasts (inf when demand is 0).
+
+    Example:
+        >>> days_of_stock(18, 8)
+        2.25
+    """
+    stock_on_hand = check_number("stock_on_hand", stock_on_hand, minimum=0)
+    avg_daily_demand = check_number("avg_daily_demand", avg_daily_demand, minimum=0)
+    if avg_daily_demand == 0:
+        return math.inf
+    return stock_on_hand / avg_daily_demand
+
+
+def reorder_status(stock_on_hand, reorder_point_units, avg_daily_demand,
+                   warning_days=3):
+    """Return "Reorder Needed", "Low" or "Sufficient".
+
+    Reorder Needed: stock <= threshold.
+    Low: stock reaches the threshold within warning_days at average demand.
+
+    Examples (dashboard rows):
+        >>> reorder_status(18, 40, 8)
+        'Reorder Needed'
+        >>> reorder_status(60, 50, 5)
+        'Low'
+        >>> reorder_status(85, 45, 2.9)
+        'Sufficient'
+    """
+    stock_on_hand = check_number("stock_on_hand", stock_on_hand, minimum=0)
+    reorder_point_units = check_number("reorder_point_units", reorder_point_units, minimum=0)
+    avg_daily_demand = check_number("avg_daily_demand", avg_daily_demand, minimum=0)
+    warning_days = check_number("warning_days", warning_days, minimum=0)
+
+    if stock_on_hand <= reorder_point_units:
+        return STATUS_REORDER
+    if avg_daily_demand > 0:
+        days_to_reorder = (stock_on_hand - reorder_point_units) / avg_daily_demand
+        if days_to_reorder <= warning_days:
+            return STATUS_LOW
+    return STATUS_SUFFICIENT
