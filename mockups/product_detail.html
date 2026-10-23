@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product Detail | Pharma Stock Tracker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo"><i class="fa-solid fa-capsules"></i></div>
+    <div><h1>Pharma Stock</h1><span>Supply Chain Tracker</span></div></div>
+  <div class="nav-group-label">Overview</div>
+  <a class="nav-link active" href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+  <a class="nav-link" href="kpi.html"><i class="fa-solid fa-chart-line"></i> KPIs</a>
+  <a class="nav-link" href="forecast.html"><i class="fa-solid fa-chart-column"></i> Forecast</a>
+  <div class="nav-group-label">Inventory</div>
+  <a class="nav-link" href="receive.html"><i class="fa-solid fa-truck-ramp-box"></i> Receive Stock</a>
+  <a class="nav-link" href="dispense.html"><i class="fa-solid fa-hand-holding-medical"></i> Dispense</a>
+  <a class="nav-link" href="expiry_risk.html"><i class="fa-solid fa-hourglass-half"></i> Expiry Risk</a>
+  <div class="nav-group-label">Monitoring</div>
+  <a class="nav-link" href="alerts.html"><i class="fa-solid fa-bell"></i> Alerts</a>
+  <div class="sidebar-foot">BFB 321 · Pharmaceutical Stock Level Tracker</div>
+</aside>
+<div class="main">
+<header class="topbar"><div class="search"><i class="fa-solid fa-magnifying-glass"></i><input placeholder="Search products, batches, suppliers…"></div><div class="topbar-actions"><button class="icon-btn" title="Alerts"><i class="fa-solid fa-bell"></i><span class="dot"></span></button><button class="icon-btn" title="Settings"><i class="fa-solid fa-gear"></i></button><div class="avatar">RP</div></div></header>
+<div class="content">
+<div class="page-head">
+<div><p style="margin-bottom:6px"><a class="link" href="dashboard.html"><i class="fa-solid fa-arrow-left"></i> Back to dashboard</a></p><h2>Metformin 850mg <span class="badge bad" style="vertical-align:middle;font-size:12px"><i class="fa-solid fa-cart-arrow-down"></i> Reorder Needed</span></h2><p>Antidiabetic · Prescription medicine</p></div>
+<button class="btn"><i class="fa-solid fa-cart-plus"></i> Create order</button>
+</div>
+
+<section class="kpis fade">
+  <div class="kpi bad"><div class="kpi-top"><span class="kpi-label">Current stock</span><div class="kpi-ico"><i class="fa-solid fa-cubes-stacked"></i></div></div><div class="kpi-value">18 <small>units</small></div><div class="kpi-foot">Below reorder point</div></div>
+  <div class="kpi"><div class="kpi-top"><span class="kpi-label">Avg daily demand</span><div class="kpi-ico"><i class="fa-solid fa-chart-simple"></i></div></div><div class="kpi-value">8 <small>units</small></div><div class="kpi-foot">Steady pattern</div></div>
+  <div class="kpi"><div class="kpi-top"><span class="kpi-label">Lead time</span><div class="kpi-ico"><i class="fa-solid fa-truck"></i></div></div><div class="kpi-value">3 <small>days</small></div><div class="kpi-foot">Supplier average</div></div>
+  <div class="kpi warn"><div class="kpi-top"><span class="kpi-label">Safety / reorder</span><div class="kpi-ico"><i class="fa-solid fa-shield-halved"></i></div></div><div class="kpi-value">16 / 40</div><div class="kpi-foot">Safety stock / reorder point</div></div>
+</section>
+<section class="panel fade">
+  <div class="panel-head"><h3>Batches (First Expired, First Out)</h3><span class="badge info">18 units · 3 batches</span></div>
+  <div class="panel-body" style="padding-bottom:4px"><p class="hint">The batch with the earliest expiry date is dispensed first.</p></div>
+  <div class="table-wrap">
+    <table><thead><tr><th>Batch ID</th><th>Quantity</th><th>Expiry Date</th><th>Dispense Order</th></tr></thead>
+    <tbody>
+      <tr><td>B-2091</td><td class="num">6</td><td class="num">2026-11-15</td><td><span class="badge bad">Dispense next</span></td></tr>
+      <tr><td>B-2114</td><td class="num">8</td><td class="num">2027-01-22</td><td><span class="badge warn">2nd</span></td></tr>
+      <tr><td>B-2140</td><td class="num">4</td><td class="num">2027-05-10</td><td><span class="badge ok">3rd</span></td></tr>
+    </tbody></table>
+  </div>
+</section>
+</div>
+</div>
+</div>
+<script>
+  var els=document.querySelectorAll('.fade');
+  els.forEach(function(el,i){setTimeout(function(){el.classList.add('in');},60+i*45);});
+
+</script>
+</body>
+</html>

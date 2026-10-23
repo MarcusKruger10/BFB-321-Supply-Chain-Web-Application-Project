@@ -1,109 +1,183 @@
-<!DOCTYPE html> <!-- Declares the document as HTML5 -->
-<html lang="en"> <!-- Sets the document language to English -->
-<head> <!-- Begins page metadata -->
-    <meta charset="UTF-8"> <!-- Sets the page character encoding --> <!-- Character set -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapts the page to phone screens --> <!-- Fits phone screens -->
-    <title>Reorder Alerts | Pharma Stock Tracker</title> <!-- Sets the browser tab title --> <!-- Browser tab text -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Loads Bootstrap 5 components and utilities --> <!-- Bootstrap -->
-    <link href="../static/css/style.css" rel="stylesheet"> <!-- Loads the shared project stylesheet --> <!-- Our CSS (../ = up one folder, then into static/css) -->
-</head> <!-- Ends page metadata -->
-<body class="app-page"> <!-- Applies the shared app visual theme -->
-    <header class="app-header"> <!-- Provides the shared dark navigation header -->
-        <nav class="navbar navbar-expand-md"> <!-- Creates the responsive Bootstrap navbar without a toggle --> <!-- Same links on every page -->
-            <div class="container"> <!-- Aligns navigation content to the page container -->
-                <a class="navbar-brand" href="dashboard.html">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
-                <div class="navbar-nav flex-row flex-wrap gap-2"> <!-- Keeps navigation links in a row that wraps on small screens -->
-                    <a class="nav-link" href="dashboard.html">Dashboard</a> <!-- Links to the dashboard -->
-                    <a class="nav-link" href="receive.html">Receive Stock</a> <!-- Links to stock receiving -->
-                    <a class="nav-link" href="dispense.html">Dispense</a> <!-- Links to dispensing -->
-                    <a class="nav-link active" href="alerts.html" aria-current="page">Alerts</a> <!-- Marks the current page in the navbar -->
-                    <a class="nav-link" href="forecast.html">Forecast</a> <!-- Links to demand forecasts -->
-                    <a class="nav-link" href="expiry_risk.html">Expiry Risk</a> <!-- Links to expiry risk -->
-                    <a class="nav-link" href="kpi.html">KPIs</a> <!-- Links to key performance indicators -->
-                    <a class="nav-link" href="login.html">Log In</a> <!-- Links to login -->
-                </div> <!-- Ends the navigation links -->
-            </div> <!-- Ends the navigation container -->
-        </nav> <!-- Ends the shared navbar -->
-    </header> <!-- Ends the shared page header -->
-    <main class="container app-main"> <!-- Centers the page content and applies shared spacing -->
-        <section class="card app-intro mb-4"> <!-- Places the page introduction in a Bootstrap card -->
-            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
-                <h1 class="mb-2">Reorder Alerts</h1> <!-- Shows the page heading -->
-                <p class="mb-0">Products at or below their reorder point. The system suggests an order quantity; the pharmacist reviews it and makes the final decision.</p> <!-- Explains the alert workflow -->
-            </div> <!-- Ends the introduction card body -->
-        </section> <!-- Ends the introduction card -->
-        <section class="card mb-4"> <!-- Places the reorder alert details in a Bootstrap card -->
-            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
-                <h2 class="h4 mb-3">Metformin 850mg - <span class="badge bg-danger">Reorder Needed</span></h2> <!-- Shows the alert heading and red status badge -->
-                <ul class="mb-4"> <!-- Presents the key reorder figures as a list -->
-                    <li>Current stock: 18 units</li> <!-- Preserves the current stock value -->
-                    <li>Reorder point: 40 units</li> <!-- Preserves the reorder threshold -->
-                    <li>Days of stock left: about 2 days</li> <!-- Preserves the estimated stock cover -->
-                    <li>Suggested order: 380 units</li> <!-- Preserves the suggested order quantity -->
-                </ul> <!-- Ends the reorder figures list -->
-                <h3 class="h5 mb-3">How this was calculated</h3> <!-- Labels the calculation details -->
-                <div class="table-responsive stock-table-wrap mb-4"> <!-- Makes the calculation table responsive -->
-                    <table class="table table-hover align-middle mb-0"> <!-- Applies Bootstrap table styling -->
-                        <thead class="table-light"> <!-- Gives the calculation table header a light background -->
-                            <tr> <!-- Starts the calculation table headings -->
-                                <th scope="col">Step</th> <!-- Labels the calculation step column -->
-                                <th scope="col">Result</th> <!-- Labels the calculation result column -->
-                            </tr> <!-- Ends the calculation table headings -->
-                        </thead> <!-- Ends the calculation table header -->
-                        <tbody> <!-- Starts the calculation details -->
-                            <tr><td>Average daily demand</td><td>8 units/day</td></tr> <!-- Preserves the average daily demand calculation -->
-                            <tr><td>Demand standard deviation</td><td>4.5 units/day</td></tr> <!-- Preserves the demand deviation calculation -->
-                            <tr><td>Supplier lead time</td><td>3 days</td></tr> <!-- Preserves the supplier lead time -->
-                            <tr><td>Service level</td><td>98% (z = 2.05)</td></tr> <!-- Preserves the service level -->
-                            <tr><td>Safety stock = z x standard deviation x square root of lead time</td><td>2.05 x 4.5 x 1.73 = 16 units</td></tr> <!-- Preserves the safety stock calculation -->
-                            <tr><td>Reorder point = daily demand x lead time + safety stock</td><td>8 x 3 + 16 = 40 units</td></tr> <!-- Preserves the reorder point calculation -->
-                            <tr><td>EOQ = square root of (2 x annual demand x order cost / holding cost)</td><td>square root of (2 x 2920 x R150 / R6) = 382, rounded to 380</td></tr> <!-- Preserves the economic order quantity calculation -->
-                            <tr><td>Expiry cap = daily demand x shelf life - stock on hand</td><td>8 x 180 - 18 = 1422 units (no cap needed)</td></tr> <!-- Preserves the expiry cap calculation -->
-                        </tbody> <!-- Ends the calculation details -->
-                    </table> <!-- Ends the calculation table -->
-                </div> <!-- Ends the responsive calculation table wrapper -->
-                <form action="#" method="post"> <!-- Preserves the reorder form action and method -->
-                    <div class="mb-3"> <!-- Groups the order quantity label and input -->
-                        <label class="form-label" for="order_qty">Order quantity</label> <!-- Labels the quantity input -->
-                        <input class="form-control" type="number" id="order_qty" name="order_qty" value="380" min="1" step="1" required> <!-- Styles the order quantity input and preserves its attributes -->
-                    </div> <!-- Ends the quantity field group -->
-                    <button class="btn btn-primary me-2" type="submit">Approve and create order</button> <!-- Styles the approval action -->
-                    <button class="btn btn-outline-secondary" type="button">Dismiss</button> <!-- Styles the dismiss action -->
-                </form> <!-- Ends the reorder form -->
-            </div> <!-- Ends the reorder alert card body -->
-        </section> <!-- Ends the reorder alert card -->
-        <section class="card mb-4"> <!-- Places the low-stock alert in a Bootstrap card -->
-            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
-                <h2 class="h4 mb-3">Paracetamol 500mg - <span class="badge bg-warning text-dark">Low</span></h2> <!-- Shows the low alert heading with a yellow badge -->
-                <p class="mb-0">60 units on hand, reorder point 50 units. At about 5 units per day, it is expected to reach its reorder point in around 2 days.</p> <!-- Preserves the low-stock explanation -->
-            </div> <!-- Ends the low-stock card body -->
-        </section> <!-- Ends the low-stock alert card -->
-        <section class="card mb-4"> <!-- Places the alert history in a Bootstrap card -->
-            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
-                <h2 class="h4 mb-3">Alert History</h2> <!-- Labels the alert history -->
-                <div class="table-responsive stock-table-wrap"> <!-- Makes the alert history table responsive -->
-                    <table class="table table-hover align-middle mb-0"> <!-- Applies Bootstrap table styling -->
-                        <thead class="table-light"> <!-- Gives the alert history table header a light background -->
-                            <tr> <!-- Starts the alert history table headings -->
-                                <th scope="col">Date</th> <!-- Labels the date column -->
-                                <th scope="col">Product</th> <!-- Labels the product column -->
-                                <th scope="col">Suggested</th> <!-- Labels the suggested quantity column -->
-                                <th scope="col">Decision</th> <!-- Labels the decision column -->
-                                <th scope="col">Ordered</th> <!-- Labels the ordered quantity column -->
-                            </tr> <!-- Ends the alert history table headings -->
-                        </thead> <!-- Ends the alert history table header -->
-                        <tbody> <!-- Starts alert history data -->
-                            <tr><td>2026-10-15</td><td>Ibuprofen 200mg</td><td>200</td><td>Approved</td><td>200</td></tr> <!-- Preserves the first alert history row -->
-                            <tr><td>2026-10-12</td><td>Amoxicillin 500mg</td><td>150</td><td>Approved</td><td>120</td></tr> <!-- Preserves the second alert history row -->
-                            <tr><td>2026-10-08</td><td>Cetirizine 10mg</td><td>60</td><td>Dismissed</td><td>-</td></tr> <!-- Preserves the third alert history row -->
-                        </tbody> <!-- Ends alert history data -->
-                    </table> <!-- Ends the alert history table -->
-                </div> <!-- Ends the responsive alert history table wrapper -->
-            </div> <!-- Ends the alert history card body -->
-        </section> <!-- Ends the alert history card -->
-    </main> <!-- Ends the page content -->
-    <footer class="site-footer"> <!-- Applies the shared footer styling -->
-        <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p> <!-- Preserves the project footer text -->
-    </footer> <!-- Ends the page footer -->
-</body> <!-- Ends the page body -->
-</html> <!-- Ends the HTML document -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reorder Alerts | Pharma Stock Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+</head>
+<body class="app-page">
+    <header class="app-header">
+        <nav class="navbar navbar-expand-md">
+            <div class="container app-nav-container">
+                <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open navigation menu" aria-controls="side-menu" aria-expanded="false"><span aria-hidden="true"></span></button>
+                <a class="navbar-brand" href="dashboard.html">Pharma Stock Tracker</a>
+                <div class="app-top-links"><a class="nav-link" href="dashboard.html">Dashboard</a><a class="nav-link" href="login.html">Log In</a></div>
+            </div>
+        </nav>
+    </header>
+    <div class="side-menu-backdrop" data-menu-backdrop aria-hidden="true"></div>
+    <aside class="side-menu" id="side-menu" data-side-menu aria-label="Main navigation" aria-hidden="true">
+        <div class="side-menu-header"><h2 class="side-menu-title">Navigation</h2><button class="side-menu-close" type="button" data-menu-close aria-label="Close navigation menu">&times;</button></div>
+        <nav class="nav flex-column"><a class="nav-link" href="receive.html">Receive Stock</a><a class="nav-link" href="dispense.html">Dispense</a><a class="nav-link" href="alerts.html">Alerts</a><a class="nav-link" href="forecast.html">Forecast</a><a class="nav-link" href="expiry_risk.html">Expiry Risk</a><a class="nav-link" href="kpi.html">KPIs</a></nav>
+    </aside>
+    <main class="container app-main">
+        <section class="card app-intro page-intro mb-4">
+            <div class="card-body">
+                <h1 class="mb-2">Reorder Alerts</h1>
+                <p class="mb-0">Products at or below their reorder point. The system suggests an order quantity; the pharmacist reviews it and makes the final decision.</p>
+            </div>
+        </section>
+        {% set sample_alerts = [
+            {
+                "product": "Metformin 850mg",
+                "status": "Reorder Needed",
+                "current_stock": 18,
+                "reorder_point": 40,
+                "days_left": "About 2 days",
+                "suggested_order": 380,
+                "calculation_rows": [
+                    ("Average daily demand", "8 units/day"),
+                    ("Demand standard deviation", "4.5 units/day"),
+                    ("Supplier lead time", "3 days"),
+                    ("Service level", "98% (z = 2.05)"),
+                    ("Safety stock = z x standard deviation x square root of lead time", "2.05 x 4.5 x 1.73 = 16 units"),
+                    ("Reorder point = daily demand x lead time + safety stock", "8 x 3 + 16 = 40 units"),
+                    ("EOQ = square root of (2 x annual demand x order cost / holding cost)", "square root of (2 x 2920 x R150 / R6) = 382, rounded to 380"),
+                    ("Expiry cap = daily demand x shelf life - stock on hand", "8 x 180 - 18 = 1422 units (no cap needed)")
+                ]
+            },
+            {
+                "product": "Paracetamol 500mg",
+                "status": "Low",
+                "current_stock": 60,
+                "reorder_point": 50,
+                "days_left": "About 2 days",
+                "suggested_order": "Monitor",
+                "calculation_rows": [
+                    ("Average daily demand", "About 5 units/day"),
+                    ("Current stock", "60 units"),
+                    ("Reorder point", "50 units"),
+                    ("Estimated time to reorder point", "Around 2 days")
+                ]
+            }
+        ] %}
+        {% set order_ids = namespace(assigned=false) %}
+        <div class="row row-cols-1 row-cols-lg-2 g-3 mb-4">
+            {% for alert in alerts|default(sample_alerts) %}
+            <div class="col">
+                <article class="card h-100 alert-card {% if alert.status == 'Low' %}alert-card--low{% else %}alert-card--reorder{% endif %}">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-3">
+                            <h2 class="h4 mb-0">{{ alert.product }}</h2>
+                            {% if alert.status == 'Low' %}
+                            <span class="badge bg-warning text-dark">Low</span>
+                            {% else %}
+                            <span class="badge bg-danger">Reorder Needed</span>
+                            {% endif %}
+                        </div>
+                        <div class="row row-cols-2 row-cols-md-4 g-2 mb-3">
+                            <div class="col">
+                                <div class="card h-100 summary-card alert-stat-tile">
+                                    <div class="card-body">
+                                        <h3 class="summary-label">Current stock</h3>
+                                        <p class="summary-value mb-0">{{ alert.current_stock }} <span class="alert-stat-unit">units</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100 summary-card alert-stat-tile">
+                                    <div class="card-body">
+                                        <h3 class="summary-label">Reorder point</h3>
+                                        <p class="summary-value mb-0">{{ alert.reorder_point }} <span class="alert-stat-unit">units</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100 summary-card alert-stat-tile">
+                                    <div class="card-body">
+                                        <h3 class="summary-label">Days of stock left</h3>
+                                        <p class="summary-value mb-0">{{ alert.days_left }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100 summary-card alert-stat-tile">
+                                    <div class="card-body">
+                                        <h3 class="summary-label">Suggested order</h3>
+                                        <p class="summary-value mb-0">{{ alert.suggested_order }}{% if alert.suggested_order is number %} <span class="alert-stat-unit">units</span>{% endif %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-link p-0 alert-calculation-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#alert-calculation-{{ loop.index }}" aria-expanded="false" aria-controls="alert-calculation-{{ loop.index }}">View calculation</button>
+                            <div class="collapse mt-2" id="alert-calculation-{{ loop.index }}">
+                                <h3 class="h6 mb-2">How this was calculated</h3>
+                                <div class="table-responsive stock-table-wrap">
+                                    <table class="table table-sm table-hover align-middle mb-0">
+                                        <thead class="table-light">
+                                            <tr><th scope="col">Step</th><th scope="col">Result</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for step, result in alert.calculation_rows %}
+                                            <tr><td>{{ step }}</td><td>{{ result }}</td></tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert-card-footer mt-auto">
+                            {% if alert.status == 'Low' %}
+                            <p class="mb-0"><strong>Monitor:</strong> Stock is above the reorder point; review it as demand changes.</p>
+                            {% else %}
+                            {% set order_input_id = 'order_qty' if not order_ids.assigned else 'order_qty-' ~ loop.index %}
+                            {% set order_ids.assigned = true %}
+                            <form class="alert-order-form" action="#" method="post">
+                                <div class="alert-order-quantity">
+                                    <label class="form-label mb-1" for="{{ order_input_id }}">Order quantity</label>
+                                    <input class="form-control" type="number" id="{{ order_input_id }}" name="order_qty" value="{{ alert.suggested_order }}" min="1" step="1" required>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Approve and create order</button>
+                                <button class="btn btn-outline-secondary" type="button">Dismiss</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+        <section class="card mb-4">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Alert History</h2>
+                <div class="table-responsive stock-table-wrap">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Suggested</th>
+                                <th scope="col">Decision</th>
+                                <th scope="col">Ordered</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2026-10-15</td><td>Ibuprofen 200mg</td><td>200</td><td>Approved</td><td>200</td></tr>
+                            <tr><td>2026-10-12</td><td>Amoxicillin 500mg</td><td>150</td><td>Approved</td><td>120</td></tr>
+                            <tr><td>2026-10-08</td><td>Cetirizine 10mg</td><td>60</td><td>Dismissed</td><td>-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/sidebar.js"></script>
+</body>
+</html>
