@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KPIs | Pharma Stock Tracker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo"><i class="fa-solid fa-capsules"></i></div>
+    <div><h1>Pharma Stock</h1><span>Supply Chain Tracker</span></div></div>
+  <div class="nav-group-label">Overview</div>
+  <a class="nav-link" href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+  <a class="nav-link active" href="kpi.html"><i class="fa-solid fa-chart-line"></i> KPIs</a>
+  <a class="nav-link" href="forecast.html"><i class="fa-solid fa-chart-column"></i> Forecast</a>
+  <div class="nav-group-label">Inventory</div>
+  <a class="nav-link" href="receive.html"><i class="fa-solid fa-truck-ramp-box"></i> Receive Stock</a>
+  <a class="nav-link" href="dispense.html"><i class="fa-solid fa-hand-holding-medical"></i> Dispense</a>
+  <a class="nav-link" href="expiry_risk.html"><i class="fa-solid fa-hourglass-half"></i> Expiry Risk</a>
+  <div class="nav-group-label">Monitoring</div>
+  <a class="nav-link" href="alerts.html"><i class="fa-solid fa-bell"></i> Alerts</a>
+  <div class="sidebar-foot">BFB 321 · Pharmaceutical Stock Level Tracker</div>
+</aside>
+<div class="main">
+<header class="topbar"><div class="search"><i class="fa-solid fa-magnifying-glass"></i><input placeholder="Search products, batches, suppliers…"></div><div class="topbar-actions"><button class="icon-btn" title="Alerts"><i class="fa-solid fa-bell"></i><span class="dot"></span></button><button class="icon-btn" title="Settings"><i class="fa-solid fa-gear"></i></button><div class="avatar">RP</div></div></header>
+<div class="content">
+<div class="page-head">
+<div><h2>Key Performance Indicators</h2><p>Baseline (before the system) compared with results after the system. Values will be filled in once testing and the simulation have been completed.</p></div>
+</div>
+
+<section class="panel fade">
+  <div class="panel-head"><h3>Impact Metrics</h3><span class="badge info"><i class="fa-solid fa-clock"></i> Pending simulation</span></div>
+  <div class="table-wrap">
+    <table><thead><tr><th>KPI</th><th>Baseline (Before)</th><th>After</th><th>Change</th></tr></thead>
+    <tbody>
+      <tr><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-box-open"></i></div><div><strong>Stockout rate</strong></div></div></td><td class="num">&mdash;</td><td class="num">&mdash;</td><td><span class="badge info">Pending</span></td></tr>
+      <tr><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-circle-check"></i></div><div><strong>Medicine availability</strong></div></div></td><td class="num">&mdash;</td><td class="num">&mdash;</td><td><span class="badge info">Pending</span></td></tr>
+      <tr><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-truck-fast"></i></div><div><strong>Emergency orders</strong></div></div></td><td class="num">&mdash;</td><td class="num">&mdash;</td><td><span class="badge info">Pending</span></td></tr>
+      <tr><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-clock-rotate-left"></i></div><div><strong>Average replenishment time</strong></div></div></td><td class="num">&mdash;</td><td class="num">&mdash;</td><td><span class="badge info">Pending</span></td></tr>
+      <tr><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-money-bill-trend-up"></i></div><div><strong>Expired stock value (R)</strong></div></div></td><td class="num">&mdash;</td><td class="num">&mdash;</td><td><span class="badge info">Pending</span></td></tr>
+      <tr><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-rotate"></i></div><div><strong>Inventory turnover</strong></div></div></td><td class="num">&mdash;</td><td class="num">&mdash;</td><td><span class="badge info">Pending</span></td></tr>
+      <tr><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-magnifying-glass-chart"></i></div><div><strong>Time to answer stock queries</strong></div></div></td><td class="num">&mdash;</td><td class="num">&mdash;</td><td><span class="badge info">Pending</span></td></tr>
+    </tbody></table>
+  </div>
+</section>
+<section class="panel fade"><div class="panel-body"><div class="note">The system is designed to reduce the risk of stockouts. Supplier availability and demand uncertainty remain outside its full control.</div></div></section>
+</div>
+</div>
+</div>
+<script>
+  var els=document.querySelectorAll('.fade');
+  els.forEach(function(el,i){setTimeout(function(){el.classList.add('in');},60+i*45);});
+
+</script>
+</body>
+</html>

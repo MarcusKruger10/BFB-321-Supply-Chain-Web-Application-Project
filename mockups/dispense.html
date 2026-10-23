@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dispense | Pharma Stock Tracker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo"><i class="fa-solid fa-capsules"></i></div>
+    <div><h1>Pharma Stock</h1><span>Supply Chain Tracker</span></div></div>
+  <div class="nav-group-label">Overview</div>
+  <a class="nav-link" href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+  <a class="nav-link" href="kpi.html"><i class="fa-solid fa-chart-line"></i> KPIs</a>
+  <a class="nav-link" href="forecast.html"><i class="fa-solid fa-chart-column"></i> Forecast</a>
+  <div class="nav-group-label">Inventory</div>
+  <a class="nav-link" href="receive.html"><i class="fa-solid fa-truck-ramp-box"></i> Receive Stock</a>
+  <a class="nav-link active" href="dispense.html"><i class="fa-solid fa-hand-holding-medical"></i> Dispense</a>
+  <a class="nav-link" href="expiry_risk.html"><i class="fa-solid fa-hourglass-half"></i> Expiry Risk</a>
+  <div class="nav-group-label">Monitoring</div>
+  <a class="nav-link" href="alerts.html"><i class="fa-solid fa-bell"></i> Alerts</a>
+  <div class="sidebar-foot">BFB 321 · Pharmaceutical Stock Level Tracker</div>
+</aside>
+<div class="main">
+<header class="topbar"><div class="search"><i class="fa-solid fa-magnifying-glass"></i><input placeholder="Search products, batches, suppliers…"></div><div class="topbar-actions"><button class="icon-btn" title="Alerts"><i class="fa-solid fa-bell"></i><span class="dot"></span></button><button class="icon-btn" title="Settings"><i class="fa-solid fa-gear"></i></button><div class="avatar">RP</div></div></header>
+<div class="content">
+<div class="page-head">
+<div><h2>Dispense Medicine</h2><p>Record medicine sold or dispensed. Stock is taken from the batch that expires first (FEFO).</p></div>
+<button class="btn"><i class="fa-solid fa-hand-holding-medical"></i> Record dispensing</button>
+</div>
+
+<section class="panel fade">
+  <div class="panel-head"><h3>Add Dispense Medicine</h3></div>
+  <div class="panel-body">
+    <form class="form-grid" action="#" method="post">
+      <div class="field"><label for="product">Product</label>
+        <select id="product"><option>Choose a product</option><option>Amoxicillin 500mg</option><option>Paracetamol 500mg</option><option>Metformin 850mg</option><option>Ibuprofen 200mg</option><option>Cetirizine 10mg</option></select></div>
+      <div class="field"><label for="qty">Quantity</label><input id="qty" type="number" min="1"><span class="hint">Cannot be more than the stock on hand.</span></div>
+      <div class="field"><label for="date">Date</label><input id="date" type="date"></div>
+      <div class="field"><label for="ref">Script or sale reference (optional)</label><input id="ref" placeholder="e.g. RX-10293"></div>
+      <div class="field full"><div class="form-actions"><button class="btn" type="submit"><i class="fa-solid fa-check"></i> Record dispensing</button><button class="btn ghost" type="reset">Clear</button></div></div>
+    </form>
+  </div>
+</section>
+<section class="panel fade">
+  <div class="panel-head"><h3>Recent Dispensing</h3><a class="link" href="#">View all</a></div>
+  <div class="table-wrap">
+    <table><thead><tr><th>Date</th><th>Product</th><th>Quantity</th><th>Batch Used</th></tr></thead>
+    <tbody>
+      <tr><td class="num">2026-10-21</td><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-pills"></i></div><div><a href="product_detail.html">Metformin 850mg</a></div></div></td><td class="num">4</td><td>B-2091</td></tr>
+      <tr><td class="num">2026-10-21</td><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-pills"></i></div><div><a href="product_detail.html">Paracetamol 500mg</a></div></div></td><td class="num">10</td><td>B-2133</td></tr>
+      <tr><td class="num">2026-10-20</td><td><div class="prod"><div class="pill-ico"><i class="fa-solid fa-pills"></i></div><div><a href="product_detail.html">Amoxicillin 500mg</a></div></div></td><td class="num">21</td><td>B-2129</td></tr>
+    </tbody></table>
+  </div>
+</section>
+</div>
+</div>
+</div>
+<script>
+  var els=document.querySelectorAll('.fade');
+  els.forEach(function(el,i){setTimeout(function(){el.classList.add('in');},60+i*45);});
+
+</script>
+</body>
+</html>
