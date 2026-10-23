@@ -16,10 +16,9 @@
                 <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open navigation menu" aria-controls="side-menu" aria-expanded="false">
                     <span aria-hidden="true"></span>
                 </button>
-                <a class="navbar-brand" href="/">Pharma Stock Tracker</a>  <!-- App name; links to the dashboard -->
+                <a class="navbar-brand" href="/dashboard">Pharma Stock Tracker</a>
                 <div class="app-top-links">
-                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Dashboard</a>
-                    <a class="nav-link {% if request.path == '/login' %}active{% endif %}" href="/login">Log In</a>
+                    <a class="nav-link" data-auth-toggle href="/login">Log In</a>
                 </div>
             </div>
         </nav>
@@ -31,12 +30,13 @@
             <button class="side-menu-close" type="button" data-menu-close aria-label="Close navigation menu">&times;</button>
         </div>
         <nav class="nav flex-column">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
             <a class="nav-link" href="/receive">Receive Stock</a>
             <a class="nav-link" href="/dispense">Dispense</a>
             <a class="nav-link" href="/alerts">Alerts</a>
             <a class="nav-link" href="/forecast">Forecast</a>
             <a class="nav-link" href="/expiry-risk">Expiry Risk</a>
-            <a class="nav-link" href="/kpi">KPIs</a>
+            <a class="nav-link" href="/kpis">KPIs</a>
         </nav>
     </aside>
 
@@ -49,6 +49,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap's own script (powers the pop-up on the Alerts page later) -->
+    <script src="{{ url_for('static', filename='js/auth-nav.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
 </body>
 </html>

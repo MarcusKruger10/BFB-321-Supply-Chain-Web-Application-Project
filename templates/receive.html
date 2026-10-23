@@ -12,15 +12,15 @@
         <nav class="navbar navbar-expand-md">
             <div class="container app-nav-container">
                 <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open navigation menu" aria-controls="side-menu" aria-expanded="false"><span aria-hidden="true"></span></button>
-                <a class="navbar-brand" href="dashboard.html">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
-                <div class="app-top-links"><a class="nav-link" href="dashboard.html">Dashboard</a><a class="nav-link" href="login.html">Log In</a></div>
+                <a class="navbar-brand" href="/dashboard">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
+                <div class="app-top-links"><a class="nav-link" data-auth-toggle href="/login">Log In</a></div>
             </div> <!-- Ends the navigation container -->
         </nav> <!-- Ends the shared navbar -->
     </header> <!-- Ends the shared page header -->
     <div class="side-menu-backdrop" data-menu-backdrop aria-hidden="true"></div>
     <aside class="side-menu" id="side-menu" data-side-menu aria-label="Main navigation" aria-hidden="true">
         <div class="side-menu-header"><h2 class="side-menu-title">Navigation</h2><button class="side-menu-close" type="button" data-menu-close aria-label="Close navigation menu">&times;</button></div>
-        <nav class="nav flex-column"><a class="nav-link" href="receive.html">Receive Stock</a><a class="nav-link" href="dispense.html">Dispense</a><a class="nav-link" href="alerts.html">Alerts</a><a class="nav-link" href="forecast.html">Forecast</a><a class="nav-link" href="expiry_risk.html">Expiry Risk</a><a class="nav-link" href="kpi.html">KPIs</a></nav>
+        <nav class="nav flex-column"><a class="nav-link" href="/dashboard">Dashboard</a><a class="nav-link" href="/receive">Receive Stock</a><a class="nav-link" href="/dispense">Dispense</a><a class="nav-link" href="/alerts">Alerts</a><a class="nav-link" href="/forecast">Forecast</a><a class="nav-link" href="/expiry-risk">Expiry Risk</a><a class="nav-link" href="/kpis">KPIs</a></nav>
     </aside>
     <main class="container app-main"> <!-- Centers the page content and applies shared spacing -->
         <section class="card app-intro page-intro mb-4"> <!-- Places the page introduction in a Bootstrap card -->
@@ -123,6 +123,7 @@
     <footer class="site-footer"> <!-- Applies the shared footer styling -->
         <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p> <!-- Preserves the project footer text -->
     </footer> <!-- Ends the page footer -->
+    <script src="../static/js/auth-nav.js"></script>
     <script src="../static/js/sidebar.js"></script>
 </body> <!-- Ends the page body -->
 </html> <!-- Ends the HTML document -->

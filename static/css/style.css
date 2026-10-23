@@ -403,10 +403,12 @@ h1 {
 }
 
 .side-menu-title {
-    color: #ffffff;
-    font-size: 1.1rem;
+    color: rgba(223, 241, 239, 0.65);
+    font-size: 0.72rem;
     font-weight: 600;
+    letter-spacing: 0.14em;
     margin: 0;
+    text-transform: uppercase;
 }
 
 .side-menu-close {

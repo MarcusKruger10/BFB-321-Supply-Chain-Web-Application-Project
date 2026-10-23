@@ -4,12 +4,8 @@ const DEMO_PASSWORD = "BFB321";
 
 const loginForm = document.querySelector(".login-card form");
 const loginError = document.getElementById("login-error");
-const dashboardLink = Array.from(
-    document.querySelectorAll(".app-header .app-top-links a")
-).find((link) => link.textContent.trim() === "Dashboard");
-
-if (!loginForm || !loginError || !dashboardLink) {
-    throw new Error("The login form, error message, or Dashboard link is missing.");
+if (!loginForm || !loginError) {
+    throw new Error("The login form or error message is missing.");
 }
 
 loginForm.addEventListener("submit", (event) => {
@@ -19,7 +15,8 @@ loginForm.addEventListener("submit", (event) => {
     const password = document.getElementById("password").value;
 
     if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
-        window.location.assign(dashboardLink.href);
+        sessionStorage.setItem("loggedIn", "true");
+        window.location.assign("/dashboard");
         return;
     }
 
