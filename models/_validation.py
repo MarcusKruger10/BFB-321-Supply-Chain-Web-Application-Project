@@ -1,20 +1,12 @@
-"""Small input checks shared by the model modules."""
-
 import math
 from numbers import Real
 
 
 def check_number(name, value, *, minimum=None, strictly_positive=False):
-    """Return ``value`` as a float after checking it is a sensible number.
-
-    Raises:
-        TypeError: if ``value`` is not a real number (bools are rejected too).
-        ValueError: if it is NaN/infinite, not > 0 when ``strictly_positive``,
-            or below ``minimum``.
-    """
+    """Check that a value is a valid number and return it as a float."""
     if isinstance(value, bool) or not isinstance(value, Real):
         raise TypeError(f"{name} must be a number, got {type(value).__name__}")
-    value = float(value)
+    value = float(value)  # the input converted to a decimal number
     if not math.isfinite(value):
         raise ValueError(f"{name} must be a finite number, got {value}")
     if strictly_positive and value <= 0:
@@ -25,12 +17,7 @@ def check_number(name, value, *, minimum=None, strictly_positive=False):
 
 
 def check_series(name, values, *, min_length=1):
-    """Return ``values`` as a list of non-negative floats.
-
-    Raises:
-        TypeError: if ``values`` is not a list/tuple or holds non-numbers.
-        ValueError: if it is too short or holds negative values.
-    """
+    """Check that a list holds only non-negative numbers and return it as floats."""
     if not isinstance(values, (list, tuple)):
         raise TypeError(f"{name} must be a list of numbers")
     if len(values) < min_length:
