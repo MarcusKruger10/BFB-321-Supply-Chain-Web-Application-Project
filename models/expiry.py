@@ -1,11 +1,9 @@
 
-"""Expiry management and FEFO stock allocation for BFB321."""
-
 from datetime import date, datetime
 
 
 def _parse_date(value):
-    """Accept a date object or an ISO date string (YYYY-MM-DD)."""
+    """Converts a date string or date object into a valid date."""
     if isinstance(value, datetime):
         return value.date()
 
@@ -15,14 +13,14 @@ def _parse_date(value):
     if isinstance(value, str):
         try:
             return date.fromisoformat(value)
-        except ValueError as exc:
+        except ValueError as exc:  # Invalid date conversion error
             raise ValueError("Date must use YYYY-MM-DD.") from exc
 
     raise ValueError("Date must be a date or YYYY-MM-DD string.")
 
 
 def _validate_quantity(quantity):
-    """Ensure stock quantity is a finite non-negative number."""
+    """Checks that a stock quantity is valid and non-negative."""
     import math
 
     if (
@@ -37,20 +35,18 @@ def _validate_quantity(quantity):
 
 
 def classify_batch(expiry_date, today=None, warning_days=30):
-    """Classify a medicine batch by its expiry date.
+    """Classifies stock as expired, expiring soon, or fresh."""
+    expiry = _parse_date(expiry_date)  # Batch expiry date
+    current_date = (
+        _parse_date(today) if today is not None else date.today()
+    )  # Current date used for classification
 
-    Returns:
-        expired: Date is before today.
-        expiring_soon: Date is within warning_days, including today.
-        fresh: Date is beyond the warning period.
-    """
-    expiry = _parse_date(expiry_date)
-    current_date = _parse_date(today) if today is not None else date.today()
+    # warning_days: Number of days before expiry to flag stock
 
     if not isinstance(warning_days, int) or warning_days < 0:
         raise ValueError("Warning days must be a non-negative integer.")
 
-    days_remaining = (expiry - current_date).days
+    days_remaining = (expiry - current_date).days  # Days until expiry
 
     if days_remaining < 0:
         return "expired"
@@ -62,26 +58,23 @@ def classify_batch(expiry_date, today=None, warning_days=30):
 
 
 def allocate_fefo(batches, requested_quantity, today=None):
-    """Allocate stock from the earliest unexpired batches first.
+    """Allocates available stock in earliest-expiry-first order."""
+    requested_quantity = _validate_quantity(
+        requested_quantity
+    )  # Number of units requested
 
-    Each batch is a dictionary containing:
-        batch_id, expiry_date, quantity
+    current_date = (
+        _parse_date(today) if today is not None else date.today()
+    )  # Date used to check batch expiry
 
-    Expired batches are excluded from allocation.
-    The input batch records are not modified.
+    valid_batches = []  # Available batches that have not expired
 
-    Returns a dictionary containing allocations and the
-    quantity that could not be fulfilled.
-    """
-    requested_quantity = _validate_quantity(requested_quantity)
-    current_date = _parse_date(today) if today is not None else date.today()
-
-    valid_batches = []
-
-    for batch in batches:
-        batch_id = batch["batch_id"]
-        expiry = _parse_date(batch["expiry_date"])
-        quantity = _validate_quantity(batch["quantity"])
+    for batch in batches:  # Individual inventory batch
+        batch_id = batch["batch_id"]  # Unique batch identifier
+        expiry = _parse_date(batch["expiry_date"])  # Batch expiry date
+        quantity = _validate_quantity(
+            batch["quantity"]
+        )  # Available units in the batch
 
         if expiry >= current_date and quantity > 0:
             valid_batches.append({
@@ -91,17 +84,22 @@ def allocate_fefo(batches, requested_quantity, today=None):
             })
 
     valid_batches.sort(
-        key=lambda batch: (batch["expiry_date"], str(batch["batch_id"]))
-    )
+        key=lambda batch: (
+            batch["expiry_date"],
+            str(batch["batch_id"])
+        )
+    )  # Sort batches by earliest expiry date
 
-    remaining = requested_quantity
-    allocations = []
+    remaining = requested_quantity  # Units still needing allocation
+    allocations = []  # List of stock allocated from each batch
 
-    for batch in valid_batches:
+    for batch in valid_batches:  # Available batch in FEFO order
         if remaining <= 0:
             break
 
-        allocated = min(batch["quantity"], remaining)
+        allocated = min(
+            batch["quantity"], remaining
+        )  # Units allocated from current batch
 
         allocations.append({
             "batch_id": batch["batch_id"],
@@ -120,36 +118,36 @@ def allocate_fefo(batches, requested_quantity, today=None):
 
 
 def expiry_risk(batches, today=None, warning_days=30):
-    """Summarise stock quantities according to expiry risk.
+    """Calculates expired stock and quantities approaching expiry."""
+    current_date = (
+        _parse_date(today) if today is not None else date.today()
+    )  # Date used for expiry assessment
 
-    Returns quantities for expired, expiring-soon and fresh
-    stock, plus the overall quantity and at-risk percentage.
-
-    At-risk stock includes expired and expiring-soon batches.
-    """
-    current_date = _parse_date(today) if today is not None else date.today()
+    # warning_days: Number of days used to identify expiry risk
 
     summary = {
         "expired_quantity": 0,
         "expiring_soon_quantity": 0,
         "fresh_quantity": 0,
         "total_quantity": 0,
-    }
+    }  # Total stock quantities grouped by expiry status
 
     category_keys = {
         "expired": "expired_quantity",
         "expiring_soon": "expiring_soon_quantity",
         "fresh": "fresh_quantity",
-    }
+    }  # Maps expiry classifications to summary fields
 
-    for batch in batches:
-        quantity = _validate_quantity(batch["quantity"])
+    for batch in batches:  # Individual inventory batch
+        quantity = _validate_quantity(
+            batch["quantity"]
+        )  # Number of units in the batch
 
         category = classify_batch(
             batch["expiry_date"],
             today=current_date,
             warning_days=warning_days,
-        )
+        )  # Expiry classification of current batch
 
         summary[category_keys[category]] += quantity
         summary["total_quantity"] += quantity
@@ -157,7 +155,7 @@ def expiry_risk(batches, today=None, warning_days=30):
     at_risk = (
         summary["expired_quantity"]
         + summary["expiring_soon_quantity"]
-    )
+    )  # Units that are expired or approaching expiry
 
     summary["at_risk_quantity"] = at_risk
 

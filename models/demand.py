@@ -1,22 +1,16 @@
 
-"""Demand analysis and forecasting for the BFB321 inventory application.
-
-This module contains standalone supply chain calculations.
-It does not depend on Flask or the database.
-"""
-
 import math
 from statistics import mean, pstdev
 
 
 def _validate_demand(values):
-    """Validate a non-empty sequence of non-negative demand values."""
-    values = list(values)
+    """Checks that demand data contains valid non-negative numbers."""
+    values = list(values)  # Historical demand values
 
     if not values:
         raise ValueError("Demand data cannot be empty.")
 
-    for value in values:
+    for value in values:  # Individual demand value
         if (
             isinstance(value, bool)
             or not isinstance(value, (int, float))
@@ -31,37 +25,21 @@ def _validate_demand(values):
 
 
 def average_daily_demand(demand):
-    """Calculate average demand per day.
-
-    Formula: total demand / number of days.
-
-    Assumes one observation per day, including zero-demand days.
-    """
-    values = _validate_demand(demand)
+    """Calculates the average number of units demanded per day."""
+    values = _validate_demand(demand)  # Validated daily demand data
     return mean(values)
 
 
 def demand_standard_deviation(demand):
-    """Calculate population standard deviation of daily demand.
-
-    Uses the population formula, dividing variance by N.
-    A constant-demand series has a standard deviation of zero.
-    """
-    values = _validate_demand(demand)
+    """Calculates how much daily demand varies from its average."""
+    values = _validate_demand(demand)  # Validated daily demand data
     return pstdev(values)
 
 
 def moving_average_forecast(demand, window=3):
-    """Forecast the next day's demand using a moving average.
-
-    Args:
-        demand: Historical daily demand, oldest to newest.
-        window: Number of recent days to average.
-
-    Returns:
-        Forecast quantity for the next day.
-    """
-    values = _validate_demand(demand)
+    """Predicts future demand using the average of recent days."""
+    values = _validate_demand(demand)  # Historical daily demand
+    # window: Number of recent days used for forecasting
 
     if not isinstance(window, int) or isinstance(window, bool):
         raise ValueError("Window must be an integer.")
@@ -73,14 +51,9 @@ def moving_average_forecast(demand, window=3):
 
 
 def exponential_smoothing(demand, alpha=0.3):
-    """Forecast next-day demand using simple exponential smoothing.
-
-    Formula: F(t+1) = alpha * D(t) + (1-alpha) * F(t).
-
-    Initial forecast is the first observed demand.
-    Alpha must be greater than zero and at most one.
-    """
-    values = _validate_demand(demand)
+    """Forecasts demand by weighting recent observations more heavily."""
+    values = _validate_demand(demand)  # Historical demand observations
+    # alpha: Weight assigned to the latest demand observation
 
     if (
         isinstance(alpha, bool)
@@ -90,18 +63,18 @@ def exponential_smoothing(demand, alpha=0.3):
     ):
         raise ValueError("Alpha must be greater than 0 and at most 1.")
 
-    forecast = float(values[0])
+    forecast = float(values[0])  # Initial demand forecast
 
-    for actual in values[1:]:
+    for actual in values[1:]:  # Actual demand for each following day
         forecast = alpha * actual + (1 - alpha) * forecast
 
     return forecast
 
 
 def _validate_forecast_pairs(actual, predicted):
-    """Validate actual and predicted observations."""
-    actual = _validate_demand(actual)
-    predicted = _validate_demand(predicted)
+    """Checks that actual and forecasted demand values are valid."""
+    actual = _validate_demand(actual)  # Actual demand observations
+    predicted = _validate_demand(predicted)  # Predicted demand observations
 
     if len(actual) != len(predicted):
         raise ValueError(
@@ -112,38 +85,40 @@ def _validate_forecast_pairs(actual, predicted):
 
 
 def mae(actual, predicted):
-    """Calculate Mean Absolute Error (MAE)."""
-    actual, predicted = _validate_forecast_pairs(actual, predicted)
+    """Calculates the mean absolute error of demand forecasts."""
+    actual, predicted = _validate_forecast_pairs(
+        actual, predicted
+    )  # Validated actual and forecast values
 
     return mean(
         abs(a - p) for a, p in zip(actual, predicted)
-    )
+    )  # a: Actual demand; p: Predicted demand
 
 
 def rmse(actual, predicted):
-    """Calculate Root Mean Squared Error (RMSE)."""
-    actual, predicted = _validate_forecast_pairs(actual, predicted)
+    """Calculates the root mean squared error of forecasts."""
+    actual, predicted = _validate_forecast_pairs(
+        actual, predicted
+    )  # Validated actual and forecast values
 
     squared_errors = [
         (a - p) ** 2 for a, p in zip(actual, predicted)
-    ]
+    ]  # Squared differences between actual and predicted demand
 
     return math.sqrt(mean(squared_errors))
 
 
 def wape(actual, predicted):
-    """Calculate Weighted Absolute Percentage Error.
+    """Calculates forecast error as a percentage of total demand."""
+    actual, predicted = _validate_forecast_pairs(
+        actual, predicted
+    )  # Validated actual and forecast values
 
-    Returns WAPE as a percentage from 0 upwards.
-    If total actual demand is zero, returns 0 only when
-    all forecasts are also zero; otherwise returns None.
-    """
-    actual, predicted = _validate_forecast_pairs(actual, predicted)
+    total_actual = sum(actual)  # Total actual demand
 
-    total_actual = sum(actual)
     total_error = sum(
         abs(a - p) for a, p in zip(actual, predicted)
-    )
+    )  # Total absolute forecasting error
 
     if total_actual == 0:
         return 0.0 if total_error == 0 else None
@@ -152,14 +127,9 @@ def wape(actual, predicted):
 
 
 def backtest(demand, window=3):
-    """Backtest a moving-average forecast on historical demand.
-
-    Uses each preceding window of observations to predict
-    the following day. No future observations are used.
-
-    Returns actual values, forecasts and accuracy metrics.
-    """
-    values = _validate_demand(demand)
+    """Tests moving-average forecasts against historical demand."""
+    values = _validate_demand(demand)  # Historical demand observations
+    # window: Number of previous days used for each forecast
 
     if not isinstance(window, int) or isinstance(window, bool):
         raise ValueError("Window must be an integer.")
@@ -169,14 +139,14 @@ def backtest(demand, window=3):
             "Window must be at least 1 and smaller than data length."
         )
 
-    actual = []
-    predicted = []
+    actual = []  # Actual demand values used for comparison
+    predicted = []  # Forecasted demand values
 
-    for index in range(window, len(values)):
+    for index in range(window, len(values)):  # Current day position
         forecast = moving_average_forecast(
             values[index - window:index],
             window=window
-        )
+        )  # Forecast based on previous days
 
         actual.append(values[index])
         predicted.append(forecast)
