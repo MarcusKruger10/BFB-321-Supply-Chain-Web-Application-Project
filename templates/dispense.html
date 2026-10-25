@@ -9,21 +9,24 @@
 </head> <!-- Ends page metadata -->
 <body class="app-page"> <!-- Applies the shared app visual theme -->
     <header class="app-header"> <!-- Provides the shared dark navigation header -->
-        <nav class="navbar navbar-expand-md">
-            <div class="container app-nav-container">
-                <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open navigation menu" aria-controls="side-menu" aria-expanded="false"><span aria-hidden="true"></span></button>
-                <a class="navbar-brand" href="/dashboard">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
-                <div class="app-top-links"><a class="nav-link" data-auth-toggle href="/login">Log In</a></div>
+        <nav class="navbar navbar-expand-md"> <!-- Creates the responsive Bootstrap navbar without a toggle --> <!-- Same links on every page -->
+            <div class="container"> <!-- Aligns navigation content to the page container -->
+                <a class="navbar-brand" href="dashboard.html">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
+                <div class="navbar-nav flex-row flex-wrap gap-2"> <!-- Keeps navigation links in a row that wraps on small screens -->
+                    <a class="nav-link" href="dashboard.html">Dashboard</a> <!-- Links to the dashboard -->
+                    <a class="nav-link" href="receive.html">Receive Stock</a> <!-- Links to stock receiving -->
+                    <a class="nav-link active" href="dispense.html" aria-current="page">Dispense</a> <!-- Marks the current page in the navbar -->
+                    <a class="nav-link" href="alerts.html">Alerts</a> <!-- Links to reorder alerts -->
+                    <a class="nav-link" href="forecast.html">Forecast</a> <!-- Links to demand forecasts -->
+                    <a class="nav-link" href="expiry_risk.html">Expiry Risk</a> <!-- Links to expiry risk -->
+                    <a class="nav-link" href="kpi.html">KPIs</a> <!-- Links to key performance indicators -->
+                    <a class="nav-link" href="login.html">Log In</a> <!-- Links to login -->
+                </div> <!-- Ends the navigation links -->
             </div> <!-- Ends the navigation container -->
         </nav> <!-- Ends the shared navbar -->
     </header> <!-- Ends the shared page header -->
-    <div class="side-menu-backdrop" data-menu-backdrop aria-hidden="true"></div>
-    <aside class="side-menu" id="side-menu" data-side-menu aria-label="Main navigation" aria-hidden="true">
-        <div class="side-menu-header"><h2 class="side-menu-title">Navigation</h2><button class="side-menu-close" type="button" data-menu-close aria-label="Close navigation menu">&times;</button></div>
-        <nav class="nav flex-column"><a class="nav-link" href="/dashboard">Dashboard</a><a class="nav-link" href="/receive">Receive Stock</a><a class="nav-link" href="/dispense">Dispense</a><a class="nav-link" href="/alerts">Alerts</a><a class="nav-link" href="/forecast">Forecast</a><a class="nav-link" href="/expiry-risk">Expiry Risk</a><a class="nav-link" href="/kpis">KPIs</a></nav>
-    </aside>
     <main class="container app-main"> <!-- Centers the page content and applies shared spacing -->
-        <section class="card app-intro page-intro mb-4"> <!-- Places the page introduction in a Bootstrap card -->
+        <section class="card app-intro mb-4"> <!-- Places the page introduction in a Bootstrap card -->
             <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
                 <h1 class="mb-2">Dispense Medicine</h1> <!-- Shows the page heading -->
                 <p class="mb-0">Record medicine sold or dispensed. Stock is taken from the batch that expires first (FEFO).</p> <!-- Explains the dispensing workflow -->
@@ -31,42 +34,31 @@
         </section> <!-- Ends the introduction card -->
         <section class="card mb-4"> <!-- Places the dispensing form in a Bootstrap card -->
             <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
-                <h2 class="h4 mb-3">Add Dispense Medicine</h2> <!-- Labels the dispensing form section -->
                 <form action="#" method="post"> <!-- Preserves the dispensing form action and method -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3"> <!-- Groups the product label and selector -->
-                                <label class="form-label" for="product">Product</label> <!-- Labels the product selector -->
-                                <select class="form-select" id="product" name="product_id" required> <!-- Styles the selector and preserves its attributes -->
-                                    <option value="">Choose a product</option> <!-- Preserves the product placeholder -->
-                                    <option value="1">Amoxicillin 500mg</option> <!-- Preserves the Amoxicillin option -->
-                                    <option value="2">Paracetamol 500mg</option> <!-- Preserves the Paracetamol option -->
-                                    <option value="3">Metformin 850mg</option> <!-- Preserves the Metformin option -->
-                                    <option value="4">Ibuprofen 200mg</option> <!-- Preserves the Ibuprofen option -->
-                                    <option value="5">Cetirizine 10mg</option> <!-- Preserves the Cetirizine option -->
-                                </select> <!-- Ends the product selector -->
-                            </div> <!-- Ends the product field group -->
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3"> <!-- Groups the quantity label, input, and hint -->
-                                <label class="form-label" for="quantity">Quantity</label> <!-- Labels the quantity input -->
-                                <input class="form-control" type="number" id="quantity" name="quantity" min="1" step="1" required> <!-- Styles the quantity input and preserves its attributes -->
-                                <small class="form-text">Cannot be more than the stock on hand.</small> <!-- Displays the preserved hint with Bootstrap form text styling -->
-                            </div> <!-- Ends the quantity field group -->
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3"> <!-- Groups the dispense date label and input -->
-                                <label class="form-label" for="dispense_date">Date</label> <!-- Labels the dispense date input -->
-                                <input class="form-control" type="date" id="dispense_date" name="dispense_date" required> <!-- Styles the date input and preserves its attributes -->
-                            </div> <!-- Ends the date field group -->
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3"> <!-- Groups the reference label and input -->
-                                <label class="form-label" for="reference">Script or sale reference (optional)</label> <!-- Labels the reference input -->
-                                <input class="form-control" type="text" id="reference" name="reference" placeholder="e.g. RX-10293"> <!-- Styles the reference input and preserves its attributes -->
-                            </div> <!-- Ends the reference field group -->
-                        </div>
-                    </div>
+                    <div class="mb-3"> <!-- Groups the product label and selector -->
+                        <label class="form-label" for="product">Product</label> <!-- Labels the product selector -->
+                        <select class="form-select" id="product" name="product_id" required> <!-- Styles the selector and preserves its attributes -->
+                            <option value="">Choose a product</option> <!-- Preserves the product placeholder -->
+                            <option value="1">Amoxicillin 500mg</option> <!-- Preserves the Amoxicillin option -->
+                            <option value="2">Paracetamol 500mg</option> <!-- Preserves the Paracetamol option -->
+                            <option value="3">Metformin 850mg</option> <!-- Preserves the Metformin option -->
+                            <option value="4">Ibuprofen 200mg</option> <!-- Preserves the Ibuprofen option -->
+                            <option value="5">Cetirizine 10mg</option> <!-- Preserves the Cetirizine option -->
+                        </select> <!-- Ends the product selector -->
+                    </div> <!-- Ends the product field group -->
+                    <div class="mb-3"> <!-- Groups the quantity label, input, and hint -->
+                        <label class="form-label" for="quantity">Quantity</label> <!-- Labels the quantity input -->
+                        <input class="form-control" type="number" id="quantity" name="quantity" min="1" step="1" required> <!-- Styles the quantity input and preserves its attributes -->
+                        <small class="form-text">Cannot be more than the stock on hand.</small> <!-- Displays the preserved hint with Bootstrap form text styling -->
+                    </div> <!-- Ends the quantity field group -->
+                    <div class="mb-3"> <!-- Groups the dispense date label and input -->
+                        <label class="form-label" for="dispense_date">Date</label> <!-- Labels the dispense date input -->
+                        <input class="form-control" type="date" id="dispense_date" name="dispense_date" required> <!-- Styles the date input and preserves its attributes -->
+                    </div> <!-- Ends the date field group -->
+                    <div class="mb-3"> <!-- Groups the reference label and input -->
+                        <label class="form-label" for="reference">Script or sale reference (optional)</label> <!-- Labels the reference input -->
+                        <input class="form-control" type="text" id="reference" name="reference" placeholder="e.g. RX-10293"> <!-- Styles the reference input and preserves its attributes -->
+                    </div> <!-- Ends the reference field group -->
                     <button class="btn btn-primary me-2" type="submit">Record dispensing</button> <!-- Styles the dispensing submission button -->
                     <button class="btn btn-outline-secondary" type="reset">Clear</button> <!-- Styles the form reset button -->
                 </form> <!-- Ends the dispensing form -->
@@ -98,7 +90,5 @@
     <footer class="site-footer"> <!-- Applies the shared footer styling -->
         <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p> <!-- Preserves the project footer text -->
     </footer> <!-- Ends the page footer -->
-    <script src="../static/js/auth-nav.js"></script>
-    <script src="../static/js/sidebar.js"></script>
 </body> <!-- Ends the page body -->
 </html> <!-- Ends the HTML document -->

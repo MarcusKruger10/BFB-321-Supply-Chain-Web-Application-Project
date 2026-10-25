@@ -10,29 +10,25 @@
 <body class="app-page"> <!-- Applies shared styling across all pages -->
 
     <header class="app-header"> <!-- Provides the branded page header -->
-        <nav class="navbar navbar-expand-md">
-            <div class="container app-nav-container">
-                <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open navigation menu" aria-controls="side-menu" aria-expanded="false"><span aria-hidden="true"></span></button>
-                <a class="navbar-brand" href="/dashboard">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
-                <div class="app-top-links">
-                    <a class="nav-link" data-auth-toggle href="/login">Log In</a>
-                </div>
+        <nav class="navbar navbar-expand-md"> <!-- Same links on every page; links wrap without a toggle button -->
+            <div class="container"> <!-- Aligns navigation content with the page container -->
+                <a class="navbar-brand" href="dashboard.html">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
+                <div class="navbar-nav flex-row flex-wrap gap-2"> <!-- Keeps navigation links in a wrapping row -->
+                    <a class="nav-link active" href="dashboard.html" aria-current="page">Dashboard</a> <!-- Marks the current page in the navigation -->
+                    <a class="nav-link" href="receive.html">Receive Stock</a> <!-- Links to stock receiving -->
+                    <a class="nav-link" href="dispense.html">Dispense</a> <!-- Links to dispensing -->
+                    <a class="nav-link" href="alerts.html">Alerts</a> <!-- Links to alerts -->
+                    <a class="nav-link" href="forecast.html">Forecast</a> <!-- Links to forecasting -->
+                    <a class="nav-link" href="expiry_risk.html">Expiry Risk</a> <!-- Links to expiry risk -->
+                    <a class="nav-link" href="kpi.html">KPIs</a> <!-- Links to key performance indicators -->
+                    <a class="nav-link" href="login.html">Log In</a> <!-- Links to login -->
+                </div> <!-- Ends the wrapping navigation links -->
             </div> <!-- Ends the navigation container -->
         </nav> <!-- Ends the site navigation -->
     </header> <!-- Ends the page header -->
-    <div class="side-menu-backdrop" data-menu-backdrop aria-hidden="true"></div>
-    <aside class="side-menu" id="side-menu" data-side-menu aria-label="Main navigation" aria-hidden="true">
-        <div class="side-menu-header"><h2 class="side-menu-title">Navigation</h2><button class="side-menu-close" type="button" data-menu-close aria-label="Close navigation menu">&times;</button></div>
-        <nav class="nav flex-column">
-            <a class="nav-link" href="/dashboard">Dashboard</a>
-            <a class="nav-link" href="/receive">Receive Stock</a><a class="nav-link" href="/dispense">Dispense</a>
-            <a class="nav-link" href="/alerts">Alerts</a><a class="nav-link" href="/forecast">Forecast</a>
-            <a class="nav-link" href="/expiry-risk">Expiry Risk</a><a class="nav-link" href="/kpis">KPIs</a>
-        </nav>
-    </aside>
 
     <main class="container app-main"> <!-- Centers the dashboard content and spaces the page sections -->
-        <section class="app-intro page-intro mb-4"> <!-- Groups the dashboard title and description -->
+        <section class="app-intro mb-4"> <!-- Groups the dashboard title and description -->
             <h1 class="mb-2">Inventory Dashboard</h1> <!-- Identifies the current page -->
             <p class="mb-0">Current stock levels, reorder status and nearest expiry for all products. Select a product to see its batches.</p> <!-- Summarizes the dashboard purpose -->
         </section> <!-- Ends the dashboard introduction -->
@@ -133,7 +129,6 @@
     <footer class="site-footer"> <!-- Applies the shared footer styling -->
         <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p> <!-- Shows the project footer text -->
     </footer> <!-- Ends the page footer -->
-    <script src="../static/js/auth-nav.js"></script>
-    <script src="../static/js/sidebar.js"></script>
+
 </body>
 </html>

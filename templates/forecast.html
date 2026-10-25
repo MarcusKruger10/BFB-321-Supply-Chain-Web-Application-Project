@@ -9,21 +9,24 @@
 </head> <!-- Ends page metadata -->
 <body class="app-page"> <!-- Applies the shared app visual theme -->
     <header class="app-header"> <!-- Provides the shared dark navigation header -->
-        <nav class="navbar navbar-expand-md">
-            <div class="container app-nav-container">
-                <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open navigation menu" aria-controls="side-menu" aria-expanded="false"><span aria-hidden="true"></span></button>
-                <a class="navbar-brand" href="/dashboard">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
-                <div class="app-top-links"><a class="nav-link" data-auth-toggle href="/login">Log In</a></div>
+        <nav class="navbar navbar-expand-md"> <!-- Creates the responsive Bootstrap navbar without a toggle --> <!-- Same links on every page -->
+            <div class="container"> <!-- Aligns navigation content to the page container -->
+                <a class="navbar-brand" href="dashboard.html">Pharma Stock Tracker</a> <!-- Shows the app name and links to the dashboard -->
+                <div class="navbar-nav flex-row flex-wrap gap-2"> <!-- Keeps navigation links in a row that wraps on small screens -->
+                    <a class="nav-link" href="dashboard.html">Dashboard</a> <!-- Links to the dashboard -->
+                    <a class="nav-link" href="receive.html">Receive Stock</a> <!-- Links to stock receiving -->
+                    <a class="nav-link" href="dispense.html">Dispense</a> <!-- Links to dispensing -->
+                    <a class="nav-link" href="alerts.html">Alerts</a> <!-- Links to reorder alerts -->
+                    <a class="nav-link active" href="forecast.html" aria-current="page">Forecast</a> <!-- Marks the current page in the navbar -->
+                    <a class="nav-link" href="expiry_risk.html">Expiry Risk</a> <!-- Links to expiry risk -->
+                    <a class="nav-link" href="kpi.html">KPIs</a> <!-- Links to key performance indicators -->
+                    <a class="nav-link" href="login.html">Log In</a> <!-- Links to login -->
+                </div> <!-- Ends the navigation links -->
             </div> <!-- Ends the navigation container -->
         </nav> <!-- Ends the shared navbar -->
     </header> <!-- Ends the shared page header -->
-    <div class="side-menu-backdrop" data-menu-backdrop aria-hidden="true"></div>
-    <aside class="side-menu" id="side-menu" data-side-menu aria-label="Main navigation" aria-hidden="true">
-        <div class="side-menu-header"><h2 class="side-menu-title">Navigation</h2><button class="side-menu-close" type="button" data-menu-close aria-label="Close navigation menu">&times;</button></div>
-        <nav class="nav flex-column"><a class="nav-link" href="/dashboard">Dashboard</a><a class="nav-link" href="/receive">Receive Stock</a><a class="nav-link" href="/dispense">Dispense</a><a class="nav-link" href="/alerts">Alerts</a><a class="nav-link" href="/forecast">Forecast</a><a class="nav-link" href="/expiry-risk">Expiry Risk</a><a class="nav-link" href="/kpis">KPIs</a></nav>
-    </aside>
     <main class="container app-main"> <!-- Centers the page content and applies shared spacing -->
-        <section class="card app-intro page-intro mb-4"> <!-- Places the page introduction in a Bootstrap card -->
+        <section class="card app-intro mb-4"> <!-- Places the page introduction in a Bootstrap card -->
             <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
                 <h1 class="mb-2">Demand Forecast</h1> <!-- Shows the page heading -->
                 <p class="mb-0">Method: simple exponential smoothing (alpha = 0.3). Accuracy is measured on the last 4 weeks, which the model does not use to set itself up.</p> <!-- Preserves the forecast method explanation -->
@@ -67,89 +70,69 @@
                         </div> <!-- Ends the naive benchmark metric card -->
                     </div> <!-- Ends the naive benchmark metric column -->
                 </div> <!-- Ends the forecast accuracy metric row -->
+                <p class="mb-0">The forecast is more accurate than the naive benchmark for this product.</p> <!-- Preserves the forecast comparison explanation -->
             </div> <!-- Ends the forecast accuracy card body -->
         </section> <!-- Ends the forecast accuracy card -->
-        <div class="row g-4 mb-4">
-            <div class="col-lg-6">
-                <section class="card h-100"> <!-- Places weekly figures in a Bootstrap card -->
-                    <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
-                        <h2 class="h4 mb-2">Weekly Figures</h2> <!-- Labels the weekly figures section -->
-                        <p>Weeks 9 to 12 are the test weeks used to measure accuracy.</p> <!-- Preserves the test-week explanation -->
-                        <div class="table-responsive stock-table-wrap"> <!-- Makes weekly figures scrollable on narrow screens -->
-                            <table class="table table-sm table-hover align-middle mb-0 forecast-table weekly-figures"> <!-- Applies compact Bootstrap table styling -->
-                                <colgroup>
-                                    <col>
-                                    <col class="forecast-equal-column">
-                                    <col class="forecast-equal-column">
-                                    <col class="forecast-equal-column">
-                                </colgroup>
-                                <thead class="table-light"> <!-- Gives the weekly figures heading row a light background -->
-                                    <tr> <!-- Starts the weekly figures headings -->
-                                        <th scope="col">Week</th> <!-- Labels the week column -->
-                                        <th scope="col">Actual Demand</th> <!-- Labels the actual demand column -->
-                                        <th scope="col">Forecast</th> <!-- Labels the forecast column -->
-                                        <th scope="col">Absolute Error</th> <!-- Labels the absolute error column -->
-                                    </tr> <!-- Ends the weekly figures headings -->
-                                </thead> <!-- Ends the weekly figures header -->
-                                <tbody> <!-- Starts weekly demand records -->
-                                    <tr><td>Week 1</td><td>52</td><td>52.0</td><td>0.0</td></tr> <!-- Preserves the W1 demand row -->
-                                    <tr><td>Week 2</td><td>58</td><td>52.0</td><td>6.0</td></tr> <!-- Preserves the W2 demand row -->
-                                    <tr><td>Week 3</td><td>55</td><td>53.8</td><td>1.2</td></tr> <!-- Preserves the W3 demand row -->
-                                    <tr><td>Week 4</td><td>61</td><td>54.2</td><td>6.8</td></tr> <!-- Preserves the W4 demand row -->
-                                    <tr><td>Week 5</td><td>54</td><td>56.2</td><td>2.2</td></tr> <!-- Preserves the W5 demand row -->
-                                    <tr><td>Week 6</td><td>57</td><td>55.5</td><td>1.5</td></tr> <!-- Preserves the W6 demand row -->
-                                    <tr><td>Week 7</td><td>63</td><td>56.0</td><td>7.0</td></tr> <!-- Preserves the W7 demand row -->
-                                    <tr><td>Week 8</td><td>59</td><td>58.1</td><td>0.9</td></tr> <!-- Preserves the W8 demand row -->
-                                    <tr class="table-info"><td>Week 9</td><td>56</td><td>58.4</td><td>2.4</td></tr> <!-- Lightly shades the W9 test-week row -->
-                                    <tr class="table-info"><td>Week 10</td><td>60</td><td>57.7</td><td>2.3</td></tr> <!-- Lightly shades the W10 test-week row -->
-                                    <tr class="table-info"><td>Week 11</td><td>58</td><td>58.4</td><td>0.4</td></tr> <!-- Lightly shades the W11 test-week row -->
-                                    <tr class="table-info"><td>Week 12</td><td>62</td><td>58.3</td><td>3.8</td></tr> <!-- Lightly shades the W12 test-week row -->
-                                    <tr><td>Week 13</td><td>-</td><td>59.4</td><td>-</td></tr> <!-- Preserves the W13 forecast row -->
-                                </tbody> <!-- Ends weekly demand records -->
-                            </table> <!-- Ends the weekly figures table -->
-                        </div> <!-- Ends the responsive weekly figures table wrapper -->
-                    </div> <!-- Ends the weekly figures card body -->
-                </section> <!-- Ends the weekly figures card -->
-            </div>
-            <div class="col-lg-6">
-                <section class="card h-100"> <!-- Places demand patterns in a Bootstrap card -->
-                    <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
-                        <h2 class="h4 mb-3">Demand Patterns</h2> <!-- Labels the demand patterns section -->
-                        <p>Average weekly demand, trend and demand pattern for each product, showing which products move fastest and which are changing.</p>
-                        <div class="table-responsive stock-table-wrap"> <!-- Makes the demand patterns table responsive -->
-                            <table class="table table-sm table-hover align-middle mb-0 forecast-table demand-patterns"> <!-- Applies compact Bootstrap table styling -->
-                                <colgroup>
-                                    <col>
-                                    <col class="forecast-equal-column">
-                                    <col>
-                                    <col>
-                                </colgroup>
-                                <thead class="table-light"> <!-- Gives the demand patterns heading row a light background -->
-                                    <tr> <!-- Starts the demand patterns headings -->
-                                        <th scope="col">Product</th> <!-- Labels the product column -->
-                                        <th scope="col">Avg Weekly Demand</th> <!-- Labels the average weekly demand column -->
-                                        <th scope="col">Trend</th> <!-- Labels the demand trend column -->
-                                        <th scope="col">Pattern</th> <!-- Labels the demand pattern column -->
-                                    </tr> <!-- Ends the demand patterns headings -->
-                                </thead> <!-- Ends the demand patterns header -->
-                                <tbody> <!-- Starts demand pattern data -->
-                                    <tr><td>Amoxicillin 500mg</td><td>140</td><td>Stable</td><td>Fast-moving</td></tr> <!-- Preserves the Amoxicillin demand pattern -->
-                                    <tr><td>Ibuprofen 200mg</td><td>80</td><td>Stable</td><td>Fast-moving</td></tr> <!-- Preserves the Ibuprofen demand pattern -->
-                                    <tr><td>Metformin 850mg</td><td>58</td><td>Stable</td><td>Steady</td></tr> <!-- Preserves the Metformin demand pattern -->
-                                    <tr><td>Paracetamol 500mg</td><td>35</td><td>Stable</td><td>Steady</td></tr> <!-- Preserves the Paracetamol demand pattern -->
-                                    <tr><td>Cetirizine 10mg</td><td>20</td><td>Rising</td><td>Changing</td></tr> <!-- Preserves the Cetirizine demand pattern -->
-                                </tbody> <!-- Ends demand pattern data -->
-                            </table> <!-- Ends the demand patterns table -->
-                        </div> <!-- Ends the responsive demand patterns table wrapper -->
-                    </div> <!-- Ends the demand patterns card body -->
-                </section> <!-- Ends the demand patterns card -->
-            </div>
-        </div>
+        <section class="card mb-4"> <!-- Places weekly figures in a Bootstrap card -->
+            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
+                <h2 class="h4 mb-2">Weekly Figures</h2> <!-- Labels the weekly figures section -->
+                <p>Weeks W9 to W12 are the test weeks used to measure accuracy.</p> <!-- Preserves the test-week explanation -->
+                <div class="table-responsive stock-table-wrap"> <!-- Makes weekly figures scrollable on narrow screens -->
+                    <table class="table table-hover align-middle mb-0"> <!-- Applies Bootstrap table styling -->
+                        <thead class="table-light"> <!-- Gives the weekly figures heading row a light background -->
+                            <tr> <!-- Starts the weekly figures headings -->
+                                <th scope="col">Week</th> <!-- Labels the week column -->
+                                <th scope="col">Actual Demand</th> <!-- Labels the actual demand column -->
+                                <th scope="col">Forecast</th> <!-- Labels the forecast column -->
+                                <th scope="col">Absolute Error</th> <!-- Labels the absolute error column -->
+                            </tr> <!-- Ends the weekly figures headings -->
+                        </thead> <!-- Ends the weekly figures header -->
+                        <tbody> <!-- Starts weekly demand records -->
+                            <tr><td>W1</td><td>52</td><td>52.0</td><td>0.0</td></tr> <!-- Preserves the W1 demand row -->
+                            <tr><td>W2</td><td>58</td><td>52.0</td><td>6.0</td></tr> <!-- Preserves the W2 demand row -->
+                            <tr><td>W3</td><td>55</td><td>53.8</td><td>1.2</td></tr> <!-- Preserves the W3 demand row -->
+                            <tr><td>W4</td><td>61</td><td>54.2</td><td>6.8</td></tr> <!-- Preserves the W4 demand row -->
+                            <tr><td>W5</td><td>54</td><td>56.2</td><td>2.2</td></tr> <!-- Preserves the W5 demand row -->
+                            <tr><td>W6</td><td>57</td><td>55.5</td><td>1.5</td></tr> <!-- Preserves the W6 demand row -->
+                            <tr><td>W7</td><td>63</td><td>56.0</td><td>7.0</td></tr> <!-- Preserves the W7 demand row -->
+                            <tr><td>W8</td><td>59</td><td>58.1</td><td>0.9</td></tr> <!-- Preserves the W8 demand row -->
+                            <tr class="table-info"><td>W9</td><td>56</td><td>58.4</td><td>2.4</td></tr> <!-- Lightly shades the W9 test-week row -->
+                            <tr class="table-info"><td>W10</td><td>60</td><td>57.7</td><td>2.3</td></tr> <!-- Lightly shades the W10 test-week row -->
+                            <tr class="table-info"><td>W11</td><td>58</td><td>58.4</td><td>0.4</td></tr> <!-- Lightly shades the W11 test-week row -->
+                            <tr class="table-info"><td>W12</td><td>62</td><td>58.3</td><td>3.8</td></tr> <!-- Lightly shades the W12 test-week row -->
+                            <tr><td>W13</td><td>-</td><td>59.4</td><td>-</td></tr> <!-- Preserves the W13 forecast row -->
+                        </tbody> <!-- Ends weekly demand records -->
+                    </table> <!-- Ends the weekly figures table -->
+                </div> <!-- Ends the responsive weekly figures table wrapper -->
+            </div> <!-- Ends the weekly figures card body -->
+        </section> <!-- Ends the weekly figures card -->
+        <section class="card mb-4"> <!-- Places demand patterns in a Bootstrap card -->
+            <div class="card-body"> <!-- Adds Bootstrap card content spacing -->
+                <h2 class="h4 mb-3">Demand Patterns</h2> <!-- Labels the demand patterns section -->
+                <div class="table-responsive stock-table-wrap"> <!-- Makes the demand patterns table responsive -->
+                    <table class="table table-hover align-middle mb-0"> <!-- Applies Bootstrap table styling -->
+                        <thead class="table-light"> <!-- Gives the demand patterns heading row a light background -->
+                            <tr> <!-- Starts the demand patterns headings -->
+                                <th scope="col">Product</th> <!-- Labels the product column -->
+                                <th scope="col">Avg Weekly Demand</th> <!-- Labels the average weekly demand column -->
+                                <th scope="col">Trend</th> <!-- Labels the demand trend column -->
+                                <th scope="col">Pattern</th> <!-- Labels the demand pattern column -->
+                            </tr> <!-- Ends the demand patterns headings -->
+                        </thead> <!-- Ends the demand patterns header -->
+                        <tbody> <!-- Starts demand pattern data -->
+                            <tr><td>Amoxicillin 500mg</td><td>140</td><td>Stable</td><td>Fast-moving</td></tr> <!-- Preserves the Amoxicillin demand pattern -->
+                            <tr><td>Ibuprofen 200mg</td><td>80</td><td>Stable</td><td>Fast-moving</td></tr> <!-- Preserves the Ibuprofen demand pattern -->
+                            <tr><td>Metformin 850mg</td><td>58</td><td>Stable</td><td>Steady</td></tr> <!-- Preserves the Metformin demand pattern -->
+                            <tr><td>Paracetamol 500mg</td><td>35</td><td>Stable</td><td>Steady</td></tr> <!-- Preserves the Paracetamol demand pattern -->
+                            <tr><td>Cetirizine 10mg</td><td>20</td><td>Rising</td><td>Changing</td></tr> <!-- Preserves the Cetirizine demand pattern -->
+                        </tbody> <!-- Ends demand pattern data -->
+                    </table> <!-- Ends the demand patterns table -->
+                </div> <!-- Ends the responsive demand patterns table wrapper -->
+            </div> <!-- Ends the demand patterns card body -->
+        </section> <!-- Ends the demand patterns card -->
     </main> <!-- Ends the page content -->
     <footer class="site-footer"> <!-- Applies the shared footer styling -->
         <p class="mb-0">BFB 321 - Pharmaceutical Stock Level Tracker</p> <!-- Preserves the project footer text -->
     </footer> <!-- Ends the page footer -->
-    <script src="../static/js/auth-nav.js"></script>
-    <script src="../static/js/sidebar.js"></script>
 </body> <!-- Ends the page body -->
 </html> <!-- Ends the HTML document -->
