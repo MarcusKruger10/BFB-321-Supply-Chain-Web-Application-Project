@@ -44,9 +44,9 @@ The application is designed around three main objectives:
 5. Paste the repository URL and select a location to clone the repository.
 6. Open the cloned project folder in Visual Studio Code.
 7. Ensure that the **Live Server** extension is installed and enabled.
-8. Locate the main `index.html` file.
-9. Right-click `index.html` and select **Open with Live Server**.
-10. The application will open automatically in the default web browser.
+8. Navigate to the templates folder.
+9. Right-click `dashboard.html` and select **Open with Live Server**.
+10. The front-end dashboard will open in your default web browser.
 
 ### Note
-This submission focuses on the front-end design of the Pharmaceutical Stock Level Tracker. Flask and backend functionality will be implemented in the Exam submission. No Flask installation or backend server is required to view the current front-end design.
+This submission focuses on the front-end design of the Pharmaceutical Stock Level Tracker. Flask and backend functionality will be implemented in the Exam submission. No Flask installation or backend server is required to view the current front-end design. The login page is included as part of the user interface design; however, login authentication is not yet functional, as it requires Flask backend integration planned for the second submission. For this submission, please launch the application directly from dashboard.html rather than login.html.
